@@ -3,24 +3,20 @@
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
 ##
-# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests -yqq install curl
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/ctiapps/.dotfiles/master/bootstrap-debian.sh)"
 
 set -ex
 
 LINUX_USER=ak
 
-
 ################################################################################
-## Creating Linux user
+## Upgrading system and installing linuxbrew dependences
 ##
-#echo 'Please enter login password for new user and hit Enter:'
-#read LINUX_USER_PASSWORD
-
 apt-get update
 apt-get -yqq upgrade
+apt-get -yqq autoremove
 DEBIAN_FRONTEND=noninteractive \
-apt-get -yqq --no-install-recommends --no-install-suggests -yqq install \
+apt-get -yqq --no-install-recommends --no-install-suggests install \
   build-essential \
   ca-cacert \
   ca-certificates \
@@ -30,6 +26,22 @@ apt-get -yqq --no-install-recommends --no-install-suggests -yqq install \
   openssl \
   sudo
 
+read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation" res
+if [ "$res" != "" ]
+then
+  echo "Rebooting, you'll need to run this script again after that..."
+  reboot
+fi
+
+
+################################################################################
+## Creating Linux user
+##
+#echo 'Please enter login password for new user and hit Enter:'
+#read LINUX_USER_PASSWORD
+
+DEBIAN_FRONTEND=noninteractive \
+apt-get -yqq --no-install-recommends --no-install-suggests -yqq install \
 adduser \
   --quiet \
   --home /home/${LINUX_USER} \
@@ -41,7 +53,6 @@ adduser \
 usermod -aG sudo ${LINUX_USER}
 echo "${LINUX_USER} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${LINUX_USER}; \
 chmod 0440 /etc/sudoers.d/${LINUX_USER};
-
 
 
 ################################################################################
@@ -68,7 +79,7 @@ echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_
 echo 'export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"' >> /home/${LINUX_USER}/.profile
 
 # make brew command available for root user too
-echo -e "#/bin/sh\n\nsu - ${LINUX_USER} /home/linuxbrew/.linuxbrew/bin/brew \$@" > /usr/bin/brew
+echo -e "#/bin/sh\n\nsu - ${LINUX_USER} --shell `which bash` /home/linuxbrew/.linuxbrew/bin/brew \$@" > /usr/bin/brew
 chmod +x /usr/bin/brew
 
 # brew recommend to install gcc
@@ -131,12 +142,13 @@ rm /home/${LINUX_USER}/.profile
 # applications with custom options should be installed separately
 su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install tmux --with-utf8proc'
 
+brew install linuxbrew/xorg/xorg
+
 # all the packages
 brew install \
   connect \
   curl \
   diff-so-fancy \
-  feh \
   ffmpeg \
   git \
   git-flow \
