@@ -3,37 +3,28 @@
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
 ##
-# apt-get update
-# apt-get -yqq upgrade
-# apt-get -yqq autoremove
-# (you may need to restart system after this step)
-#
-# apt-get -yqq --no-install-recommends --no-install-suggests install curl
+# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl
 #
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/ctiapps/.dotfiles/master/bootstrap-debian.sh)"
 
 set -ex
 
-# apt-get update
-# apt-get -yqq upgrade
-# apt-get -yqq autoremove
-# DEBIAN_FRONTEND=noninteractive \
-# apt-get -yqq --no-install-recommends --no-install-suggests install curl
-
-# read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation" res
-# if [ "$res" != "" ]
-# then
-#   echo "Rebooting, you'll need to run this script again after that..."
-#   reboot
-# fi
-
+################################################################################
+## Settings
+##
 LINUX_USER=ak
+# read -t 10 -p "Please enter login password for new user and hit Enter" LINUX_USER_PASSWORD
+
 
 ################################################################################
 ## Installing linuxbrew dependences
 ##
+apt-get update
+apt-get -yqq upgrade
+apt-get -yqq autoremove
+
 DEBIAN_FRONTEND=noninteractive \
-apt-get -yqq --no-install-recommends --no-install-suggests install \
+apt-get -yqq --no-install-recommends --no-install-suggests install
   build-essential \
   ca-cacert \
   ca-certificates \
@@ -42,15 +33,17 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   openssl \
   sudo
 
+read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation" res
+if [ "$res" != "" ]
+then
+  echo "Rebooting, you'll need to run this script again after that..."
+  reboot
+fi
+
 
 ################################################################################
 ## Creating Linux user
 ##
-#echo 'Please enter login password for new user and hit Enter:'
-#read LINUX_USER_PASSWORD
-
-DEBIAN_FRONTEND=noninteractive \
-apt-get -yqq --no-install-recommends --no-install-suggests -yqq install \
 adduser \
   --quiet \
   --home /home/${LINUX_USER} \
