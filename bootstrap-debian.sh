@@ -1,5 +1,11 @@
 #!/bin/bash
 
+## Installation instructions
+## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
+##
+# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests -yqq install curl
+# bash -c "$(curl -fsSL https://raw.githubusercontent.com/ctiapps/.dotfiles/master/bootstrap-debian.sh)"
+
 set -ex
 
 LINUX_USER=ak
