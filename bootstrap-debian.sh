@@ -24,7 +24,7 @@ apt-get -yqq upgrade
 apt-get -yqq autoremove
 
 DEBIAN_FRONTEND=noninteractive \
-apt-get -yqq --no-install-recommends --no-install-suggests install
+apt-get -yqq --no-install-recommends --no-install-suggests install \
   build-essential \
   ca-cacert \
   ca-certificates \
