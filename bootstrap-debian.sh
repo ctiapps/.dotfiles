@@ -162,6 +162,7 @@ brew install \
   nano \
   prettyping \
   proxychains-ng \
+  rbenv \
   rsync \
   sshuttle \
   the_silver_searcher \
@@ -198,6 +199,7 @@ PACKAGES=( \
   mosh-server \
   nano \
   proxychains4 \
+  rbenv \
   rsync \
   sshuttle \
   tig \
