@@ -229,3 +229,11 @@ apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi
+
+
+################################################################################
+## Post-install
+##
+su - ak zsh -c 'source ~/.zshrc; brew'
+brew cleanup
+apt-get clean all
