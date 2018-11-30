@@ -12,7 +12,8 @@ set -ex
 ################################################################################
 ## Settings
 ##
-LINUX_USER=ak
+LINUX_USER="${LINUX_USER:-ak}"
+# TODO: set password (as for now its passwordless with ssh key authentication)
 # read -t 10 -p "Please enter login password for new user and hit Enter" LINUX_USER_PASSWORD
 
 
@@ -42,16 +43,21 @@ fi
 
 
 ################################################################################
-## Creating Linux user
+## Creating Linux user if not exist
 ##
-adduser \
-  --quiet \
-  --home /home/${LINUX_USER} \
-  --shell /bin/bash \
-  --gecos '' \
-  --disabled-password \
-  --add_extra_groups \
-  ${LINUX_USER}
+getent passwd ${LINUX_USER} > /dev/null
+if [ $? -eq 0 ]; then
+  echo "user ${LINUX_USER} already exists"
+else
+  adduser \
+    --quiet \
+    --home /home/${LINUX_USER} \
+    --shell /bin/bash \
+    --gecos '' \
+    --disabled-password \
+    --add_extra_groups \
+    ${LINUX_USER}
+fi
 usermod -aG sudo ${LINUX_USER}
 echo "${LINUX_USER} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${LINUX_USER}; \
 chmod 0440 /etc/sudoers.d/${LINUX_USER};
