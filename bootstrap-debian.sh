@@ -124,7 +124,7 @@ chown -R ${LINUX_USER}:${LINUX_USER} /home/${LINUX_USER}/.zshrc
 su - ${LINUX_USER} zsh -c "git clone --recursive https://github.com/Eriner/zim.git \${ZDOTDIR:-\${HOME}}/.zim"
 
 cat <<EOT > /tmp/zim-install.zsh
-
+rm -rf \${ZDOTDIR:-\${HOME}}/.zim
 git clone --recursive https://github.com/Eriner/zim.git \${ZDOTDIR:-\${HOME}}/.zim
 
 setopt EXTENDED_GLOB
