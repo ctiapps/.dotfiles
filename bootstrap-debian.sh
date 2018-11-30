@@ -80,7 +80,7 @@ chmod +x /usr/local/bin/docker-compose
 ################################################################################
 ## Installing Linuxbrew
 ##
-rm -rf /home/linuxbrew.linuxbrew
+rm -rf /home/linuxbrew/.linuxbrew
 mkdir -p /home/linuxbrew/.linuxbrew
 chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
 su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Linuxbrew/brew.git /home/linuxbrew/.linuxbrew'
