@@ -83,7 +83,7 @@ chmod +x /usr/local/bin/docker-compose
 rm -rf /home/linuxbrew.linuxbrew
 mkdir -p /home/linuxbrew/.linuxbrew
 chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
-su - ${LINUX_USER} --shell `which bash` 'git clone https://github.com/Linuxbrew/brew.git /home/linuxbrew/.linuxbrew'
+su - ${LINUX_USER} --shell `which bash` git clone https://github.com/Linuxbrew/brew.git /home/linuxbrew/.linuxbrew
 
 echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> /home/${LINUX_USER}/.profile
 echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_USER}/.profile
