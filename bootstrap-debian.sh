@@ -102,7 +102,7 @@ brew install gcc
 ##
 apt-get -yqq purge zsh
 rm -rf /usr/bin/zsh
-su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh --with-pcre --with-unicode9'
+su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh --with-pcre --with-unicode9'
 ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
