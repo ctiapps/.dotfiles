@@ -108,8 +108,6 @@ grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
 
 cat <<EOT > /home/${LINUX_USER}/.zshrc
-
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "\$HOME/bin" ] ; then
     PATH="\$HOME/bin:\$PATH"
@@ -118,12 +116,10 @@ fi
 export PATH="/home/linuxbrew/.linuxbrew/bin:\$PATH"
 export MANPATH="\$(brew --prefix)/share/man:\$MANPATH"
 export INFOPATH="\$(brew --prefix)/share/info:\$INFOPATH"
-
 EOT
 chown -R ${LINUX_USER}:${LINUX_USER} /home/${LINUX_USER}/.zshrc
 
 cat <<EOT > /tmp/zim-install.zsh
-
 rm -rf \${ZDOTDIR:-\${HOME}}/.zim
 git clone --recursive https://github.com/Eriner/zim.git \${ZDOTDIR:-\${HOME}}/.zim
 
@@ -137,8 +133,8 @@ for template_file ( \${ZDOTDIR:-\${HOME}}/.zim/templates/* ); do
   # for images, check
   # https://github.com/zimfw/zimfw/wiki/Themes
   # or choice tiny and minimalist theme is 'pure'
-  sed -i "" -e "s/zprompt_theme='.*'/zprompt_theme='steeef magenta yellow green cyan magenta ! green + red ?,b yellow $'/g" ~/.zimrc
-
+  sed -i.bak -e "s/zprompt_theme='.*'/zprompt_theme='steeef magenta yellow green cyan magenta ! green + red ?,b yellow $'/g" ~/.zimrc
+  rm .zimrc.bak
 EOT
 su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
 rm /tmp/zim-install.zsh
