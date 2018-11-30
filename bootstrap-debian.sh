@@ -91,6 +91,8 @@ brew install gcc
 ################################################################################
 ## zsh
 ##
+apt-get -yqq purge zsh
+rm -rf /usr/bin/zsh
 su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh --with-pcre --with-unicode9'
 ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
@@ -127,8 +129,7 @@ for template_file ( \${ZDOTDIR:-\${HOME}}/.zim/templates/* ); do
   # for images, check
   # https://github.com/zimfw/zimfw/wiki/Themes
   # or choice tiny and minimalist theme is 'pure'
-  sed -i.bak -e "s/zprompt_theme='.*'/zprompt_theme='eriner'/g" ~/.zimrc
-  rm ~/.zimrc.bak
+  sed -i "" -e "s/zprompt_theme='.*'/zprompt_theme='steeef magenta yellow green cyan magenta ! green + red ?,b yellow $'/g" ~/.zimrc
 
 EOT
 su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
@@ -152,6 +153,7 @@ brew install \
   curl \
   diff-so-fancy \
   ffmpeg \
+  fzf \
   git \
   git-flow \
   htop \
