@@ -46,9 +46,11 @@ fi
 ## Creating Linux user if not exist
 ##
 getent passwd ${LINUX_USER} > /dev/null
-if [ $? -eq 0 ]; then
-  echo "user ${LINUX_USER} already exists"
+if [ $? -eq 0 ]
+then
+  echo "User ${LINUX_USER} already exists"
 else
+  echo "Creating user ${LINUX_USER}"
   adduser \
     --quiet \
     --home /home/${LINUX_USER} \
