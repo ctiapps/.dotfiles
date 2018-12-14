@@ -108,6 +108,8 @@ grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
 
 cat <<EOT > /home/${LINUX_USER}/.zshrc
+
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "\$HOME/bin" ] ; then
     PATH="\$HOME/bin:\$PATH"
@@ -116,6 +118,10 @@ fi
 export PATH="/home/linuxbrew/.linuxbrew/bin:\$PATH"
 export MANPATH="\$(brew --prefix)/share/man:\$MANPATH"
 export INFOPATH="\$(brew --prefix)/share/info:\$INFOPATH"
+
+# Uncomment if there would be issues with TERM
+# case $TERM in screen-256*) TERM=screen;; esac
+# case $TERM in tmux-256*)   TERM=screen;; esac
 EOT
 chown -R ${LINUX_USER}:${LINUX_USER} /home/${LINUX_USER}/.zshrc
 
@@ -156,6 +162,9 @@ brew install \
   connect \
   curl \
   diff-so-fancy \
+  docker-completion \
+  docker-compose-completion \
+  docker-machine-completion \
   ffmpeg \
   fzf \
   git \
@@ -242,6 +251,5 @@ ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi
 ################################################################################
 ## Post-install
 ##
-su - ak zsh -c 'source ~/.zshrc; brew'
-brew cleanup
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew; brew cleanup'
 apt-get clean all
