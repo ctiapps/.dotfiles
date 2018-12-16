@@ -14,7 +14,9 @@ set -ex
 ##
 LINUX_USER="${LINUX_USER:-ak}"
 # TODO: set password (as for now its passwordless with ssh key authentication)
+# set +e
 # read -t 10 -p "Please enter login password for new user and hit Enter" LINUX_USER_PASSWORD
+# set -e
 
 
 ################################################################################
@@ -34,7 +36,9 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   openssl \
   sudo
 
+set +e
 read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation" res
+set -e
 if [ "$res" != "" ]
 then
   echo "Rebooting, you'll need to run this script again after that..."
@@ -45,11 +49,13 @@ fi
 ################################################################################
 ## Creating Linux user if not exist
 ##
-getent passwd ${LINUX_USER} > /dev/null
-if [ $? -eq 0 ]
-then
+set +ex
+getent passwd ${LINUX_USER} >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+  set -ex
   echo "User ${LINUX_USER} already exists"
 else
+  set -ex
   echo "Creating user ${LINUX_USER}"
   adduser \
     --quiet \
@@ -80,18 +86,25 @@ chmod +x /usr/local/bin/docker-compose
 ################################################################################
 ## Installing Linuxbrew
 ##
-rm -rf /home/linuxbrew/.linuxbrew
-mkdir -p /home/linuxbrew/.linuxbrew
-chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
-su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Linuxbrew/brew.git /home/linuxbrew/.linuxbrew'
-
-echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> /home/${LINUX_USER}/.profile
-echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_USER}/.profile
-echo 'export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"' >> /home/${LINUX_USER}/.profile
 
 # make brew command available for root user too
 echo -e "#/bin/sh\n\nsu - ${LINUX_USER} --shell `which bash` /home/linuxbrew/.linuxbrew/bin/brew \$@" > /usr/bin/brew
 chmod +x /usr/bin/brew
+
+set +e
+# rm -rf /home/linuxbrew/.linuxbrew
+mkdir -p /home/linuxbrew/.linuxbrew \
+&& (
+  chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
+  su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Linuxbrew/brew.git /home/linuxbrew/.linuxbrew'
+
+  echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> /home/${LINUX_USER}/.profile
+  echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_USER}/.profile
+  echo 'export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"' >> /home/${LINUX_USER}/.profile
+)
+
+brew
+set -e
 
 # brew recommend to install gcc
 brew install gcc
@@ -103,7 +116,7 @@ brew install gcc
 apt-get -yqq purge zsh
 rm -rf /usr/bin/zsh
 su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh --with-pcre --with-unicode9'
-ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh
+ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh >/dev/null 2>&1
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
 
@@ -145,8 +158,10 @@ EOT
 su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
 rm /tmp/zim-install.zsh
 
+set +e
 rm /home/${LINUX_USER}/.bash*
 rm /home/${LINUX_USER}/.profile
+set -e
 
 ################################################################################
 ## basic applications installable via brew
@@ -154,8 +169,6 @@ rm /home/${LINUX_USER}/.profile
 
 # applications with custom options should be installed separately
 su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install tmux --with-utf8proc'
-
-brew install linuxbrew/xorg/xorg
 
 # all the packages
 brew install \
@@ -222,9 +235,11 @@ PACKAGES=( \
   tmux-mem-cpu-load \
   yank \
 )
+set +e
 for PACKAGE in "${PACKAGES[@]}"; do
-  ln -s /home/linuxbrew/.linuxbrew/bin/${PACKAGE} /usr/bin/${PACKAGE}
+  ln -s /home/linuxbrew/.linuxbrew/bin/${PACKAGE} /usr/bin/${PACKAGE} >/dev/null 2>&1
 done
+set -e
 
 
 ################################################################################
@@ -232,7 +247,7 @@ done
 ##
 
 ## --with-client-server requires xorg
-# brew install xorg
+# brew install linuxbrew/xorg/xorg
 
 ## Choice one of options with vim:
 ## --with-lua
@@ -241,15 +256,15 @@ done
 # su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install vim --with-client-server --with-gettext --with-lua --with-tcl'
 brew install neovim
 
+set +e
 apt-get -yqq purge vim*
-
-ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim
-ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim
-ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi
-
+ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
+ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
+ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
+set -e
 
 ################################################################################
 ## Post-install
 ##
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew; brew cleanup'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew cleanup'
 apt-get clean all
