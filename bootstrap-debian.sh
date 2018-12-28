@@ -178,17 +178,13 @@ brew install \
   docker-completion \
   docker-compose-completion \
   docker-machine-completion \
-  ffmpeg \
   fzf \
   git \
   git-flow \
   htop \
   mc \
-  mdv \
   mosh \
-  mplayer \
   nano \
-  prettyping \
   proxychains-ng \
   rbenv \
   rsync \
@@ -200,8 +196,7 @@ brew install \
   util-linux \
   w3m \
   wget \
-  yank \
-  youtube-dl
+  yank
 
 apt-get -yqq purge \
   curl* \
@@ -241,6 +236,16 @@ for PACKAGE in "${PACKAGES[@]}"; do
 done
 set -e
 
+################################################################################
+## Rest of packages
+##
+set +e
+brew install ffmpeg
+brew install mdv
+brew install mplayer
+brew install prettyping
+brew install youtube-dl
+set -e
 
 ################################################################################
 ## vim
@@ -253,15 +258,20 @@ set -e
 ## --with-lua
 ## or
 ## --with-luajit
-# su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install vim --with-client-server --with-gettext --with-lua --with-tcl'
-brew install neovim
-
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install vim --with-gettext --with-lua --with-tcl'
 set +e
 apt-get -yqq purge vim*
-ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
-ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
-ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
+ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vim >/dev/null 2>&1
+ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vi  >/dev/null 2>&1
 set -e
+
+# brew install neovim
+# set +e
+# apt-get -yqq purge vim*
+# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
+# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
+# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
+# set -e
 
 ################################################################################
 ## Post-install
