@@ -115,7 +115,7 @@ brew install gcc
 ##
 apt-get -yqq purge zsh
 rm -rf /usr/bin/zsh
-su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install --with-pcre --with-unicode9 zsh'
+su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh'
 ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh >/dev/null 2>&1
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
@@ -168,7 +168,7 @@ set -e
 ##
 
 # applications with custom options should be installed separately
-su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install --with-utf8proc tmux'
+su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install tmux'
 
 # all the packages
 brew install \
