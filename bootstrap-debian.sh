@@ -115,7 +115,7 @@ brew install gcc
 ##
 apt-get -yqq purge zsh
 rm -rf /usr/bin/zsh
-su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh --with-pcre --with-unicode9'
+su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install --with-pcre --with-unicode9 zsh'
 ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh >/dev/null 2>&1
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
@@ -168,7 +168,7 @@ set -e
 ##
 
 # applications with custom options should be installed separately
-su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install tmux --with-utf8proc'
+su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install --with-utf8proc tmux'
 
 # all the packages
 brew install \
@@ -258,7 +258,7 @@ set -e
 ## --with-lua
 ## or
 ## --with-luajit
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install vim --with-gettext --with-lua --with-tcl'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install --with-gettext --with-lua --with-tcl vim'
 set +e
 apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vim >/dev/null 2>&1
