@@ -5,7 +5,7 @@
 ##
 # apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl
 #
-# bash -c "$(curl -fsSL https://raw.githubusercontent.com/ctiapps/.dotfiles/master/bootstrap-debian.sh)"
+# bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrius/.dotfiles/master/bootstrap-debian.sh)"
 
 set -ex
 
@@ -115,7 +115,7 @@ brew install gcc
 ##
 apt-get -yqq purge zsh
 rm -rf /usr/bin/zsh
-su - ${LINUX_USER} --shell `which bash` -c '/home/linuxbrew/.linuxbrew/bin/brew install zsh'
+brew install zsh
 ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh >/dev/null 2>&1
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
@@ -167,9 +167,6 @@ set -e
 ## basic applications installable via brew
 ##
 
-# applications with custom options should be installed separately
-su - ${LINUX_USER} sh -c '/home/linuxbrew/.linuxbrew/bin/brew install tmux'
-
 # all the packages
 brew install \
   connect \
@@ -191,6 +188,7 @@ brew install \
   sshuttle \
   the_silver_searcher \
   tig \
+  tmux \
   tmux-mem-cpu-load \
   unzip \
   util-linux \
@@ -258,7 +256,8 @@ set -e
 ## --with-lua
 ## or
 ## --with-luajit
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install --with-gettext --with-lua --with-tcl vim'
+# su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install --with-gettext --with-lua --with-tcl vim'
+brew install vim
 set +e
 apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vim >/dev/null 2>&1
