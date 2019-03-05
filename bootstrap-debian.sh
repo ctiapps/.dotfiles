@@ -96,7 +96,7 @@ set +e
 mkdir -p /home/linuxbrew/.linuxbrew \
 && (
   chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
-  su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Linuxbrew/brew.git /home/linuxbrew/.linuxbrew'
+  su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew'
 
   echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> /home/${LINUX_USER}/.profile
   echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_USER}/.profile
@@ -276,5 +276,5 @@ set -e
 ################################################################################
 ## Post-install
 ##
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew cleanup'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew cleanup --prune all'
 apt-get clean all
