@@ -120,7 +120,7 @@ brew install gcc
 ################################################################################
 ## zsh
 ##
-apt-get -yqq purge zsh
+apt-get -yqq purge zsh*
 rm -rf /usr/bin/zsh
 brew install zsh
 ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh >/dev/null 2>&1
@@ -214,8 +214,7 @@ apt-get -yqq purge \
   mosh* \
   nano* \
   rsync* \
-  tmux* \
-  zsh*
+  tmux*
 
 PACKAGES=( \
   ag \
