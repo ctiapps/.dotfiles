@@ -75,13 +75,19 @@ chmod 0440 /etc/sudoers.d/${LINUX_USER};
 ################################################################################
 ## Installing docker
 ##
-curl -sSL https://get.docker.com/ | sh
-usermod -aG docker ${LINUX_USER}
-LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
-COMPOSE_VERSION=${LATEST_URL##*/}
-DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
-curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+
+bash -c "docker -v > /dev/null 2>&1"
+if [[ $? != 0 ]]; then
+  curl -sSL https://get.docker.com/ | sh
+  usermod -aG docker ${LINUX_USER}
+  LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
+  COMPOSE_VERSION=${LATEST_URL##*/}
+  DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
+  curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+else
+  echo "Docker already installed"
+fi
 
 
 ################################################################################
