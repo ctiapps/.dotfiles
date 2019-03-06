@@ -31,6 +31,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   build-essential \
   ca-cacert \
   ca-certificates \
+  curl \
   file \
   git \
   openssl \
@@ -257,20 +258,20 @@ set -e
 ## or
 ## --with-luajit
 # su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install --with-gettext --with-lua --with-tcl vim'
-brew install vim
-set +e
-apt-get -yqq purge vim*
-ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vim >/dev/null 2>&1
-ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vi  >/dev/null 2>&1
-set -e
-
-# brew install neovim
+# brew install vim
 # set +e
 # apt-get -yqq purge vim*
-# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
-# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
-# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
+# ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vim >/dev/null 2>&1
+# ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vi  >/dev/null 2>&1
 # set -e
+
+brew install neovim
+set +e
+apt-get -yqq purge vim*
+ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
+ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
+ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
+set -e
 
 ################################################################################
 ## Post-install
