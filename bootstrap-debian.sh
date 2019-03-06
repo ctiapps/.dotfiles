@@ -248,11 +248,12 @@ set -e
 ## Rest of packages
 ##
 set +e
-brew install ffmpeg
-brew install mdv
-brew install mplayer
-brew install prettyping
-brew install youtube-dl
+brew install \
+  ffmpeg \
+  mdv \
+  mplayer \
+  prettyping \
+  youtube-dl
 set -e
 
 
