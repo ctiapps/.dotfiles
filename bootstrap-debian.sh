@@ -123,10 +123,12 @@ chsh -s /usr/bin/zsh ${LINUX_USER}
 
 cat <<EOT > /home/${LINUX_USER}/.zshrc
 
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "\$HOME/bin" ] ; then
     PATH="\$HOME/bin:\$PATH"
+fi
+if [ -d "\$HOME/.dotfiles/bin" ] ; then
+    PATH="\$HOME/.dotfiles/bin:\$PATH"
 fi
 
 export PATH="/home/linuxbrew/.linuxbrew/bin:\$PATH"
@@ -163,6 +165,7 @@ set +e
 rm /home/${LINUX_USER}/.bash*
 rm /home/${LINUX_USER}/.profile
 set -e
+
 
 ################################################################################
 ## basic applications installable via brew
@@ -235,6 +238,7 @@ for PACKAGE in "${PACKAGES[@]}"; do
 done
 set -e
 
+
 ################################################################################
 ## Rest of packages
 ##
@@ -245,6 +249,7 @@ brew install mplayer
 brew install prettyping
 brew install youtube-dl
 set -e
+
 
 ################################################################################
 ## vim
@@ -272,6 +277,20 @@ ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
 set -e
+
+
+################################################################################
+## Clone and bootstrap dotfiles
+##
+if [ ! -d "/home/${LINUX_USER}/.dotfiles" ] ; then
+  git clone https://github.com/andrius/.dotfiles.git  /home/${LINUX_USER}/.dotfiles
+  chown -R ${LINUX_USER}:${LINUX_USER} /home/${LINUX_USER}/.dotfiles
+fi
+
+if [ -d "/home/${LINUX_USER}/.dotfiles" ] ; then
+  echo "dotfiles clonned"
+fi
+
 
 ################################################################################
 ## Post-install
