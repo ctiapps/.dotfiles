@@ -9,9 +9,7 @@ DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSI
 sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-sudo apt-get update
-sudo apt-get -yqq upgrade
-sudo apt-get -yqq autoremove
+sudo bash -c 'apt-get update && apt-get -yqq upgrade && apt-get -yqq autoremove && apt-get clean all'
 
 brew update
 brew upgrade
