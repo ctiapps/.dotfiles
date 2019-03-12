@@ -38,7 +38,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   sudo
 
 set +e
-read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation" res
+read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation\n" res
 set -e
 if [ "$res" != "" ]
 then
