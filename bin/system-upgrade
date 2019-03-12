@@ -1,17 +1,35 @@
 #!/usr/bin/env zsh
 
+# dotfiles and submodules
+cd ${HOME}/.dotfiles && \
+git pull; \
+git submodule update --init --recursive; \
+git pull --recurse-submodules; \
+git submodule update --force --remote; \
+git submodule sync
+cd
+
+# zim update
 zsh ${ZIM_HOME}/tools/zim_update
 source ${ZIM_HOME}/tools/zim_clean_cache
 
+# docker-compose
 LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
 COMPOSE_VERSION=${LATEST_URL##*/}
-DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
-sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+CURRENT_VERSION=`/usr/local/bin/docker-compose --version 2>/dev/null | awk -F " |," '{print $3}'`
+if [ "${CURRENT_VERSION}" != "${COMPOSE_VERSION}" ]
+then
+    DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
+    sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+else
+    echo "Docker-compose version is up to date"
+fi
 
+# apt-get
 sudo bash -c 'apt-get update && apt-get -yqq upgrade && apt-get -yqq autoremove && apt-get clean all'
 
+# brew
 brew update
 brew upgrade
 brew cleanup --prune all --verbose
-
