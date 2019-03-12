@@ -207,6 +207,9 @@ brew install \
   wget \
   yank
 
+brew update
+brew upgrade
+
 apt-get -yqq purge \
   curl* \
   git* \
