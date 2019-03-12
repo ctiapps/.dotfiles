@@ -177,6 +177,7 @@ set -e
 ## basic applications installable via brew
 ##
 
+set +e
 # all the packages
 brew install \
   connect \
@@ -237,7 +238,6 @@ PACKAGES=( \
   tmux-mem-cpu-load \
   yank \
 )
-set +e
 for PACKAGE in "${PACKAGES[@]}"; do
   ln -s /home/linuxbrew/.linuxbrew/bin/${PACKAGE} /usr/bin/${PACKAGE} >/dev/null 2>&1
 done
