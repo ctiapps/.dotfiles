@@ -3,7 +3,7 @@
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
 ##
-# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl
+# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl ca-cacert
 #
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrius/.dotfiles/master/bootstrap-debian.sh)"
 
@@ -50,13 +50,13 @@ fi
 ################################################################################
 ## Creating Linux user if not exist
 ##
-set +ex
+set +e
 getent passwd ${LINUX_USER} >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-  set -ex
+  set -e
   echo "User ${LINUX_USER} already exists"
 else
-  set -ex
+  set -e
   echo "Creating user ${LINUX_USER}"
   adduser \
     --quiet \
@@ -76,8 +76,10 @@ chmod 0440 /etc/sudoers.d/${LINUX_USER};
 ## Installing docker
 ##
 
+set +e
 bash -c "docker -v > /dev/null 2>&1"
 if [[ $? != 0 ]]; then
+  set -e
   curl -sSL https://get.docker.com/ | sh
   usermod -aG docker ${LINUX_USER}
   LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
@@ -86,6 +88,7 @@ if [[ $? != 0 ]]; then
   curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
 else
+  set -e
   echo "Docker already installed"
 fi
 
