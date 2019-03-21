@@ -199,6 +199,7 @@ brew install \
   proxychains-ng \
   rbenv \
   rsync \
+  ruby \
   sshuttle \
   the_silver_searcher \
   tig \
@@ -253,14 +254,13 @@ set -e
 ################################################################################
 ## Rest of packages
 ##
-set +e
-brew install \
-  ffmpeg \
-  mdv \
-  mplayer \
-  prettyping \
-  youtube-dl
-set -e
+# set +e
+# brew install \
+#   ffmpeg \
+#   mplayer \
+#   prettyping \
+#   youtube-dl
+# set -e
 
 
 ################################################################################
