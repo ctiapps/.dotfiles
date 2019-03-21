@@ -200,6 +200,7 @@ brew install \
   rbenv \
   rsync \
   ruby \
+  libpcap sngrep \
   sshuttle \
   the_silver_searcher \
   tig \
@@ -222,6 +223,7 @@ apt-get -yqq purge \
   mosh* \
   nano* \
   rsync* \
+  sngrep* \
   tmux*
 
 PACKAGES=( \
@@ -240,6 +242,7 @@ PACKAGES=( \
   rbenv \
   rsync \
   sshuttle \
+  sngrep \
   tig \
   tmux \
   tmux-mem-cpu-load \
