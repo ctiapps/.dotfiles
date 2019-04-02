@@ -34,6 +34,8 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   curl \
   file \
   git \
+  mtr-tiny \
+  net-tools \
   openssl \
   sudo
 
@@ -216,11 +218,11 @@ brew update
 brew upgrade
 
 apt-get -yqq purge \
-  curl* \
   git* \
   htop* \
   mc* \
   mosh* \
+  mtr* \
   nano* \
   rsync* \
   sngrep* \
@@ -229,7 +231,6 @@ apt-get -yqq purge \
 PACKAGES=( \
   ag \
   connect \
-  curl \
   git \
   git-flow \
   htop \
@@ -265,6 +266,8 @@ set -e
 #   youtube-dl
 # set -e
 
+# Digital Ocean
+# brew install doctl
 
 ################################################################################
 ## vim
