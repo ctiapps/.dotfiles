@@ -198,6 +198,7 @@ brew install \
   mc \
   mosh \
   nano \
+  nmap \
   proxychains-ng \
   rbenv \
   rsync \
@@ -224,6 +225,7 @@ apt-get -yqq purge \
   mosh* \
   mtr* \
   nano* \
+  nmap* \
   rsync* \
   sngrep* \
   tmux*
@@ -239,6 +241,7 @@ PACKAGES=( \
   mosh-client \
   mosh-server \
   nano \
+  nmap \
   proxychains4 \
   rbenv \
   rsync \
