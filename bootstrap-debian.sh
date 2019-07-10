@@ -26,6 +26,7 @@ apt-get update
 apt-get -yqq upgrade
 apt-get -yqq autoremove
 
+set +e
 DEBIAN_FRONTEND=noninteractive \
 apt-get -yqq --no-install-recommends --no-install-suggests install \
   build-essential \
@@ -38,6 +39,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   net-tools \
   openssl \
   sudo
+set -e
 
 set +e
 read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation\n" res
