@@ -194,6 +194,7 @@ brew install \
   fzf \
   git \
   git-flow \
+  httpie \
   htop \
   mc \
   mosh \
@@ -219,7 +220,6 @@ brew update
 brew upgrade
 
 apt-get -yqq purge \
-  git* \
   htop* \
   mc* \
   mosh* \
@@ -233,7 +233,6 @@ apt-get -yqq purge \
 PACKAGES=( \
   ag \
   connect \
-  git \
   git-flow \
   htop \
   mc \
