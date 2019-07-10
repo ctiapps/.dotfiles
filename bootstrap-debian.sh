@@ -226,7 +226,6 @@ apt-get -yqq purge \
   mtr* \
   nano* \
   nmap* \
-  rsync* \
   sngrep* \
   tmux*
 
@@ -243,7 +242,6 @@ PACKAGES=( \
   nmap \
   proxychains4 \
   rbenv \
-  rsync \
   sshuttle \
   sngrep \
   tig \
