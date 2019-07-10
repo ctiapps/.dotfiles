@@ -109,6 +109,7 @@ mkdir -p /home/linuxbrew/.linuxbrew \
 && (
   chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
   su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew'
+  su - ${LINUX_USER} --shell `which bash` -c 'cd /home/linuxbrew/.linuxbrew && git config --local --replace-all homebrew.private true'
 
   echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> /home/${LINUX_USER}/.profile
   echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_USER}/.profile
