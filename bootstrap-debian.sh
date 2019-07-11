@@ -86,6 +86,15 @@ if [[ $? != 0 ]]; then
   set -e
   curl -sSL https://get.docker.com/ | sh
   usermod -aG docker ${LINUX_USER}
+else
+  set -e
+  echo "Docker already installed"
+fi
+
+set +e
+bash -c "docker-compose -v > /dev/null 2>&1"
+if [[ $? != 0 ]]; then
+  set -e
   LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
   COMPOSE_VERSION=${LATEST_URL##*/}
   DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
@@ -93,8 +102,9 @@ if [[ $? != 0 ]]; then
   chmod +x /usr/local/bin/docker-compose
 else
   set -e
-  echo "Docker already installed"
+  echo "docker-compose already installed"
 fi
+
 
 
 ################################################################################
