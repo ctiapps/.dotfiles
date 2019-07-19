@@ -1,0 +1,40 @@
+# Themes
+# ---------
+
+- repo: ayu-theme/ayu-vim
+- repo: noahfrederick/vim-hemisu
+- repo: noahfrederick/vim-noctu
+- repo: vim-scripts/summerfruit256.vim
+- repo: NLKNguyen/papercolor-theme
+- repo: vim-scripts/peaksea
+- repo: lifepillar/vim-solarized8
+
+# Utils
+# ---------
+
+- repo: skywind3000/asyncrun.vim
+- repo: eshion/vim-sync
+
+# Languages
+# ---------
+
+- { repo: elzr/vim-json, on_ft: json }
+- { repo: vim-ruby/vim-ruby, on_ft: ruby }
+- { repo: rhysd/vim-crystal, on_ft: crystal }
+- { repo: elixir-lang/vim-elixir, on_ft: elixir }
+- { repo: ipoddubny/asterisk-vim, on_ft: asterisk }
+- { repo: vim-scripts/ael.vim, on_ft: ael }
+- { repo: kamailio/vim-kamailio-syntax, on_ft: kamailio }
+- { repo: kamailio/vim-kamailio-autocomplete, on_ft: kamailio }
+- { repo: slim-template/vim-slim, on_ft: slim }
+
+# MarkdownTOC, configured to get it working similar to Sublime plugin
+# let g:vmt_fence_text='MarkdownTOC'
+- repo: mzlogin/vim-markdown-toc
+  depends: vim-markdown
+  on_ft: markdown
+  hook_source: |
+    let g:vmt_fence_text='MarkdownTOC autolink="true" uri_encoding="false" levels="1,2,3,4,5,6"'
+    let g:vmt_fence_closing_text='/MarkdownTOC'
+    let g:vmt_fence_hidden_markdown_style='GitLab'
+    let g:vmt_list_item_char='-'

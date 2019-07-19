@@ -1,0 +1,8 @@
+# # Binding for last window
+# unbind l
+# bind C-b last-window
+
+# unbind C-a
+# set -g prefix C-b
+# bind b send-prefix
+# run-shell -b "tmux display \"Control key is Ctrl-b\""

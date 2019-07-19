@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usre/bin/env bash
 
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
@@ -7,13 +7,18 @@
 #
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrius/.dotfiles/master/bootstrap-debian.sh)"
 
-set -ex
-
+set -x
 ################################################################################
 ## Settings
 ##
 LINUX_USER="${LINUX_USER:-ak}"
-# TODO: set password (as for now its passwordless with ssh key authentication)
+LINUX_USER_HOME="${LINUX_USER_HOME}/home/${LINUX_USER}"
+set +e
+read -t 10 -p "
+Creating user ${LINUX_USER} with home folder ${LINUX_USER_HOME}\nIf you want to modify, press Ctrl-C now;\nset your own LINUX_USER and LINUX_USER_HOME and rer-run script, i.e.:\n\nLINUX_USER=me LINUX_USER_HOME=/home/myhome bootstrap-debian.sh\n\nPress Enter to continue...\n" res
+set -e
+
+# TODO: set password (currently its passwordless with ssh key authentication)
 # set +e
 # read -t 10 -p "Please enter login password for new user and hit Enter" LINUX_USER_PASSWORD
 # set -e
@@ -27,7 +32,7 @@ apt-get -yqq upgrade
 apt-get -yqq autoremove
 
 set +e
-DEBIAN_FRONTEND=noninteractive \
+NUXDEBIAN_FRONTEND=noninteractive \
 apt-get -yqq --no-install-recommends --no-install-suggests install \
   build-essential \
   ca-cacert \
@@ -64,7 +69,7 @@ else
   echo "Creating user ${LINUX_USER}"
   adduser \
     --quiet \
-    --home /home/${LINUX_USER} \
+    --home ${LINUX_USER_HOME} \
     --shell /bin/bash \
     --gecos '' \
     --disabled-password \
@@ -123,9 +128,9 @@ mkdir -p /home/linuxbrew/.linuxbrew \
   su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew'
   su - ${LINUX_USER} --shell `which bash` -c 'cd /home/linuxbrew/.linuxbrew && git config --local --replace-all homebrew.private true'
 
-  echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> /home/${LINUX_USER}/.profile
-  echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> /home/${LINUX_USER}/.profile
-  echo 'export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"' >> /home/${LINUX_USER}/.profile
+  echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'      >> ${LINUX_USER_HOME}/.profile
+  echo 'export MANPATH="$(brew --prefix)/share/man:$MANPATH"'    >> ${LINUX_USER_HOME}/.profile
+  echo 'export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"' >> ${LINUX_USER_HOME}/.profile
 )
 
 brew
@@ -145,7 +150,7 @@ ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh >/dev/null 2>&1
 grep -q -F '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 chsh -s /usr/bin/zsh ${LINUX_USER}
 
-cat <<EOT > /home/${LINUX_USER}/.zshrc
+cat <<EOT > ${LINUX_USER_HOME}/.zshrc
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "\$HOME/bin" ] ; then
@@ -163,7 +168,7 @@ export INFOPATH="\$(brew --prefix)/share/info:\$INFOPATH"
 # case $TERM in screen-256*) TERM=screen;; esac
 # case $TERM in tmux-256*)   TERM=screen;; esac
 EOT
-chown -R ${LINUX_USER}:${LINUX_USER} /home/${LINUX_USER}/.zshrc
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.zshrc
 
 cat <<EOT > /tmp/zim-install.zsh
 rm -rf \${ZDOTDIR:-\${HOME}}/.zim
@@ -186,8 +191,8 @@ su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
 rm /tmp/zim-install.zsh
 
 set +e
-rm /home/${LINUX_USER}/.bash*
-rm /home/${LINUX_USER}/.profile
+rm ${LINUX_USER_HOME}/.bash*
+rm ${LINUX_USER_HOME}/.profile
 set -e
 
 
@@ -301,7 +306,7 @@ set -e
 # ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vi  >/dev/null 2>&1
 # set -e
 
-brew install neovim
+brew install python3 neovim
 set +e
 apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
@@ -313,18 +318,40 @@ set -e
 ################################################################################
 ## Clone and bootstrap dotfiles
 ##
-if [ ! -d "/home/${LINUX_USER}/.dotfiles" ] ; then
-  git clone https://github.com/andrius/.dotfiles.git  /home/${LINUX_USER}/.dotfiles
-  chown -R ${LINUX_USER}:${LINUX_USER} /home/${LINUX_USER}/.dotfiles
+if [ ! -d "${LINUX_USER_HOME}/.dotfiles" ] ; then
+  git clone https://github.com/andrius/.dotfiles.git  ${LINUX_USER_HOME}/.dotfiles
+else
+  echo ".dotfiles folder is already there, trying to update"
+  cd "${LINUX_USER_HOME}/.dotfiles"
+  git fetch --all
+  git pull
 fi
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.dotfiles
 
-if [ -d "/home/${LINUX_USER}/.dotfiles" ] ; then
-  echo "dotfiles clonned"
-fi
+# TODO: backup
+set +e
+rm -rf ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
+ln -s ${LINUX_USER_HOME}/.dotfiles/tmux ${LINUX_USER_HOME}/.tmux
+ln -s ${LINUX_USER_HOME}/.tmux/tmux.conf ${LINUX_USER_HOME}/.tmux.conf
+cp ${LINUX_USER_HOME}/.tmux/user.conf-sample ${LINUX_USER_HOME}/.tmux/user.conf
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
+set -e
 
+set +e
+# We use rafi nvim config with some modifications
+mkdir -p ${LINUX_USER_HOME}/.config
+git clone git://github.com/rafi/vim-config.git ${LINUX_USER_HOME}/.config/nvim
+ln -s ${LINUX_USER_HOME}/.config/nvim ${LINUX_USER_HOME}/.vim
+ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.vim ${LINUX_USER_HOME}/.config/nvim/config/local.vim
+ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.plugins.yaml ${LINUX_USER_HOME}/.config/nvim/config/local.plugins.yaml
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.config
+su - ${LINUX_USER} zsh -c 'cd ~/.config/nvim && make install'
+set -e
 
 ################################################################################
 ## Post-install
 ##
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew cleanup --prune all'
 apt-get clean all
+
