@@ -319,7 +319,7 @@ set -e
 ## Clone and bootstrap dotfiles
 ##
 if [ ! -d "${LINUX_USER_HOME}/.dotfiles" ] ; then
-  git clone https://github.com/andrius/.dotfiles.git  ${LINUX_USER_HOME}/.dotfiles
+  git clone https://github.com/andrius/.dotfiles.git ${LINUX_USER_HOME}/.dotfiles
 else
   echo ".dotfiles folder is already there, trying to update"
   cd "${LINUX_USER_HOME}/.dotfiles"

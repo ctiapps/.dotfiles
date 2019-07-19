@@ -30,8 +30,8 @@ if dein#tap('caw.vim')
 endif
 
 
-set background=light
-" set background=dark
+" set background=light
+set background=dark
 
 " colorscheme hemisu
 

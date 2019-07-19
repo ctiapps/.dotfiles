@@ -5,4 +5,8 @@
 # unbind C-a
 # set -g prefix C-b
 # bind b send-prefix
+#
+# set -g prefix2 C-a      # GNU-Screen compatible prefix
+# bind C-a send-prefix -2
+
 # run-shell -b "tmux display \"Control key is Ctrl-b\""
