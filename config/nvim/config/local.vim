@@ -88,8 +88,8 @@ let g:tmuxline_powerline_separators=1
 "     \ 'space' : ' '}
 
 
-set background=light
-" set background=dark
+" set background=light
+set background=dark
 
 " colorscheme hemisu
 
@@ -97,7 +97,7 @@ set background=light
 
 " colorscheme summerfruit256
 
-" colorscheme PaperColor
+colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
       \ 	'theme': {
       \ 		'default': {
