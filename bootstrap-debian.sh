@@ -281,6 +281,7 @@ set -e
 #   ffmpeg \
 #   mplayer \
 #   prettyping \
+#   yamllint \
 #   youtube-dl
 # set -e
 
