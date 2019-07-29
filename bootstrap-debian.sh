@@ -250,6 +250,7 @@ apt-get -yqq purge \
 PACKAGES=( \
   ag \
   connect \
+  ctags \
   git-flow \
   htop \
   mc \
@@ -265,6 +266,7 @@ PACKAGES=( \
   tig \
   tmux \
   tmux-mem-cpu-load \
+  yamllint \
   yank \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
@@ -281,7 +283,6 @@ set -e
 #   ffmpeg \
 #   mplayer \
 #   prettyping \
-#   yamllint \
 #   youtube-dl
 # set -e
 

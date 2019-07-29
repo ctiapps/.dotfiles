@@ -4,30 +4,32 @@
 map <Leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <LocalLeader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
+let ssh_user=$LC_SSH_USER
+
 if dein#tap('caw.vim')
-	function! InitCaw() abort
-		if ! &l:modifiable
-			silent! nunmap <buffer> <Leader>V
-			silent! xunmap <buffer> <Leader>V
-			silent! nunmap <buffer> <Leader>v
-			silent! xunmap <buffer> <Leader>v
-			silent! nunmap <buffer> gc
-			silent! xunmap <buffer> gc
-			silent! nunmap <buffer> gcc
-			silent! xunmap <buffer> gcc
-		else
-			xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-			nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-			xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
-			nmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
-			nmap <buffer> gc <Plug>(caw:hatpos:toggle)
-			xmap <buffer> gc <Plug>(caw:hatpos:toggle)
-			nmap <buffer> gcc <Plug>(caw:prefix)
-			xmap <buffer> gcc <Plug>(caw:prefix)
-		endif
-	endfunction
-	autocmd MyAutoCmd FileType * call InitCaw()
-	call InitCaw()
+  function! InitCaw() abort
+    if ! &l:modifiable
+      silent! nunmap <buffer> <Leader>V
+      silent! xunmap <buffer> <Leader>V
+      silent! nunmap <buffer> <Leader>v
+      silent! xunmap <buffer> <Leader>v
+      silent! nunmap <buffer> gc
+      silent! xunmap <buffer> gc
+      silent! nunmap <buffer> gcc
+      silent! xunmap <buffer> gcc
+    else
+      xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+      nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+      xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
+      nmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
+      nmap <buffer> gc <Plug>(caw:hatpos:toggle)
+      xmap <buffer> gc <Plug>(caw:hatpos:toggle)
+      nmap <buffer> gcc <Plug>(caw:prefix)
+      xmap <buffer> gcc <Plug>(caw:prefix)
+    endif
+  endfunction
+  autocmd MyAutoCmd FileType * call InitCaw()
+  call InitCaw()
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -75,21 +77,29 @@ let g:airline_powerline_fonts=1
 " let g:airline_theme='atomic'
 " let g:airline_theme='badwolf'
 " let g:airline_theme='silver'
+" let g:airline_theme='ayu_light'
 " let g:airline_theme='ayu_mirage'
+" let g:airline_theme='ayu_dark'
 " let g:airline_theme='tomorrow'
-let g:airline_theme='papercolor'
+" let g:airline_theme='papercolor'
+" let g:airline_theme='bubblegum'
+" let g:airline_theme='cobalt2'
+" let g:airline_theme='sol'
+let g:airline_theme='solarized'
 
 let g:tmuxline_powerline_separators=1
 " let g:tmuxline_separators={
-"     \ 'left' : '',
-"     \ 'left_alt': '',
-"     \ 'right' : '',
-"     \ 'right_alt' : '',
-"     \ 'space' : ' '}
+"    \ 'left' : '',
+"    \ 'left_alt': '',
+"    \ 'right' : '',
+"    \ 'right_alt' : '',
+"    \ 'space' : ' '}
 
 
-" set background=light
 set background=dark
+if ssh_user == 'andrius'
+  set background=light
+endif
 
 " colorscheme hemisu
 
@@ -99,11 +109,11 @@ set background=dark
 
 colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
-      \ 	'theme': {
-      \ 		'default': {
-      \ 			'transparent_background': 0
-      \ 		}
-      \ 	}
+      \   'theme': {
+      \     'default': {
+      \       'transparent_background': 0
+      \     }
+      \   }
       \ }
 
 " colorscheme peaksea
@@ -132,3 +142,10 @@ let ayucolor="light"  " for light version of theme
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" " Load user custom local settings
+" if filereadable(expand('$VIMPATH/config/user.vim'))
+"   call s:source_file('user.vim')
+" endif
+"
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
