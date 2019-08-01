@@ -284,6 +284,8 @@ set -e
 #   mplayer \
 #   prettyping \
 #   youtube-dl
+# brew tap veelenga/tap
+# brew install ameba
 # set -e
 
 # Digital Ocean
