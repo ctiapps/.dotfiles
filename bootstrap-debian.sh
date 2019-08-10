@@ -3,7 +3,7 @@
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
 ##
-# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl ca-cacert
+# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl ca-cacert ca-certificates
 #
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrius/.dotfiles/master/bootstrap-debian.sh)"
 
@@ -31,11 +31,9 @@ apt-get update
 apt-get -yqq upgrade
 apt-get -yqq autoremove
 
-set +e
-NUXDEBIAN_FRONTEND=noninteractive \
+DEBIAN_FRONTEND=noninteractive \
 apt-get -yqq --no-install-recommends --no-install-suggests install \
   build-essential \
-  ca-cacert \
   ca-certificates \
   curl \
   file \
@@ -44,7 +42,6 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   net-tools \
   openssl \
   sudo
-set -e
 
 set +e
 read -t 10 -p "Type 'reboot' and hit ENTER, if you want to reboot after upgrade/install, or just press ENTER to continue installation\n" res
