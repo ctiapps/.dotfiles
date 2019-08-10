@@ -210,8 +210,7 @@ brew install \
   docker-compose-completion \
   docker-machine-completion \
   fzf \
-  git \
-  git-flow \
+  git git-flow ghi hub tig \
   httpie \
   htop \
   mc \
@@ -225,7 +224,6 @@ brew install \
   libpcap sngrep \
   sshuttle \
   the_silver_searcher \
-  tig \
   tmux \
   tmux-mem-cpu-load \
   unzip \
@@ -311,6 +309,9 @@ set -e
 # set -e
 
 brew install python3 neovim
+pip2 install --user --upgrade pynvim virtualenv
+pip3 install --user --upgrade pynvim virtualenv
+gem install --no-rdoc --no-ri neovim
 set +e
 apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1

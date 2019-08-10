@@ -6,32 +6,6 @@ map <LocalLeader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 let ssh_user=$LC_SSH_USER
 
-if dein#tap('caw.vim')
-  function! InitCaw() abort
-    if ! &l:modifiable
-      silent! nunmap <buffer> <Leader>V
-      silent! xunmap <buffer> <Leader>V
-      silent! nunmap <buffer> <Leader>v
-      silent! xunmap <buffer> <Leader>v
-      silent! nunmap <buffer> gc
-      silent! xunmap <buffer> gc
-      silent! nunmap <buffer> gcc
-      silent! xunmap <buffer> gcc
-    else
-      xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-      nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
-      xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
-      nmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
-      nmap <buffer> gc <Plug>(caw:hatpos:toggle)
-      xmap <buffer> gc <Plug>(caw:hatpos:toggle)
-      nmap <buffer> gcc <Plug>(caw:prefix)
-      xmap <buffer> gcc <Plug>(caw:prefix)
-    endif
-  endfunction
-  autocmd MyAutoCmd FileType * call InitCaw()
-  call InitCaw()
-endif
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
 " wombat etc, check https://github.com/itchyny/lightline.vim
@@ -62,16 +36,16 @@ let g:lightline={
       \ 'subseparator': { 'left': ' ', 'right': ' ' }
       \ }
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => airline
 " https://github.com/vim-airline/vim-airline-themes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled=1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline#extensions#whitespace#enabled=1
+let g:airline_extensions = []
+" " Enable the list of buffers
+" let g:airline#extensions#tabline#enabled=1
+" " Show just the filename
+" let g:airline#extensions#tabline#fnamemod=':t'
+" let g:airline#extensions#whitespace#enabled=1
 
 let g:airline_powerline_fonts=1
 " let g:airline_theme='atomic'
@@ -79,13 +53,13 @@ let g:airline_powerline_fonts=1
 " let g:airline_theme='silver'
 " let g:airline_theme='ayu_light'
 " let g:airline_theme='ayu_mirage'
-" let g:airline_theme='ayu_dark'
+let g:airline_theme='ayu_dark'
 " let g:airline_theme='tomorrow'
 " let g:airline_theme='papercolor'
 " let g:airline_theme='bubblegum'
 " let g:airline_theme='cobalt2'
 " let g:airline_theme='sol'
-let g:airline_theme='solarized'
+" let g:airline_theme='solarized'
 
 let g:tmuxline_powerline_separators=1
 " let g:tmuxline_separators={
@@ -94,12 +68,6 @@ let g:tmuxline_powerline_separators=1
 "    \ 'right' : '',
 "    \ 'right_alt' : '',
 "    \ 'space' : ' '}
-
-
-set background=dark
-if ssh_user == 'andrius'
-  set background=light
-endif
 
 " colorscheme hemisu
 
@@ -140,12 +108,45 @@ let ayucolor="light"  " for light version of theme
 " colorscheme solarized8_low  " low-contrast variant
 " colorscheme solarized8_flat " flat variant
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set background=dark
+" if ssh_user == 'andrius'
+"   set background=light
+"   " colorscheme ayu
+" endif
+
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+if dein#tap('caw.vim')
+  function! InitCaw() abort
+    if ! &l:modifiable
+      silent! nunmap <buffer> <Leader>V
+      silent! xunmap <buffer> <Leader>V
+      silent! nunmap <buffer> <Leader>v
+      silent! xunmap <buffer> <Leader>v
+      silent! nunmap <buffer> gc
+      silent! xunmap <buffer> gc
+      silent! nunmap <buffer> gcc
+      silent! xunmap <buffer> gcc
+    else
+      xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+      nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+      xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
+      nmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
+      nmap <buffer> gc <Plug>(caw:hatpos:toggle)
+      xmap <buffer> gc <Plug>(caw:hatpos:toggle)
+      nmap <buffer> gcc <Plug>(caw:prefix)
+      xmap <buffer> gcc <Plug>(caw:prefix)
+    endif
+  endfunction
+  " autocmd MyAutoCmd FileType * call InitCaw()
+  autocmd user_events FileType * call InitCaw()
+  call InitCaw()
+endif
 
 " " Load user custom local settings
 " if filereadable(expand('$VIMPATH/config/user.vim'))
 "   call s:source_file('user.vim')
 " endif
-"
+
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
