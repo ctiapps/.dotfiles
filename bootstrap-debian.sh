@@ -1,4 +1,4 @@
-#!/usre/bin/env bash
+#!/usr/bin/env bash
 
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
@@ -311,7 +311,7 @@ set -e
 brew install python@2 python3 neovim
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim virtualenv'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim virtualenv'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; gem install --no-rdoc --no-ri neovim'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; gem install neovim'
 set +e
 apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
