@@ -273,19 +273,22 @@ set -e
 ################################################################################
 ## Rest of packages
 ##
-# set +e
+set +e
+
 # brew install \
 #   ffmpeg \
 #   mplayer \
 #   prettyping \
 #   youtube-dl
+#
+# # Crystal-lang
 # brew tap veelenga/tap
 # brew install ameba
-# set -e
 
-# Digital Ocean
+# # Digital Ocean
 # brew install doctl
 
+set -e
 ################################################################################
 ## vim
 ##
@@ -305,10 +308,10 @@ set -e
 # ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vi  >/dev/null 2>&1
 # set -e
 
-brew install python3 neovim
-pip2 install --user --upgrade pynvim virtualenv
-pip3 install --user --upgrade pynvim virtualenv
-gem install --no-rdoc --no-ri neovim
+brew install python@2 python3 neovim
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim virtualenv'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim virtualenv'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; gem install --no-rdoc --no-ri neovim'
 set +e
 apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
