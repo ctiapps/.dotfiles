@@ -199,7 +199,7 @@ set -e
 
 set +e
 # all the packages
-brew install \
+PACKAGES=( \
   connect \
   curl \
   diff-so-fancy \
@@ -227,20 +227,14 @@ brew install \
   util-linux \
   w3m \
   wget \
-  yank
+  yank \
+)
+for PACKAGE in "${PACKAGES[@]}"; do
+  brew install ${PACKAGE}
+done
 
 brew update
 brew upgrade
-
-apt-get -yqq purge \
-  htop* \
-  mc* \
-  mosh* \
-  mtr* \
-  nano* \
-  nmap* \
-  sngrep* \
-  tmux*
 
 PACKAGES=( \
   ag \
@@ -249,9 +243,9 @@ PACKAGES=( \
   git-flow \
   htop \
   mc \
-  mosh \
   mosh-client \
   mosh-server \
+  mosh \
   nano \
   nmap \
   proxychains4 \
@@ -259,12 +253,13 @@ PACKAGES=( \
   sshuttle \
   sngrep \
   tig \
-  tmux \
   tmux-mem-cpu-load \
+  tmux \
   yamllint \
   yank \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
+  apt-get -yqq purge ${PACKAGE}*
   ln -s /home/linuxbrew/.linuxbrew/bin/${PACKAGE} /usr/bin/${PACKAGE} >/dev/null 2>&1
 done
 set -e
