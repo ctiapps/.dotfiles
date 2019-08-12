@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "WARNING: this is 'dangerous' script that purge all the logs in /var/log"
+echo "Press Ctrl-C if unsure or wait (note, it should be ran with sudo permissions)"
+sleep 7
+
+for logs in `find /var/log -type f`; do > $lpogs; done
+for logs in `find /var/log -type f -iname '*.gz'`; do rm $logs; done

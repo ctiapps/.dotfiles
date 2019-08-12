@@ -1,0 +1,8 @@
+#!/bin/sh
+
+docker kill $(docker ps -aq) && sleep 3
+docker kill $(docker ps -aq) && sleep 3
+docker rmi -f $(docker images -q)
+docker volume rm $(docker volume ls --quiet | grep -v "shared-data$" | grep -v "traefik-ssl$")
+docker network rm $(docker network ls | awk '{print $2}' | grep -v "ID" | grep -v ingress | grep -v bridge | grep -v host | grep -v none)
+docker system prune --all --force
