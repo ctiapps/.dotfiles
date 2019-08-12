@@ -41,6 +41,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   mtr-tiny \
   net-tools \
   openssl \
+  rsync \
   sudo
 
 set +e
