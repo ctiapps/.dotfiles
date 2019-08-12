@@ -344,6 +344,6 @@ set -e
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew update; brew upgrade; brew cleanup --prune all'
 apt-get clean all
-/home/${LINUX_USER_HOME}/.dotfiles/bin/purge-system-logfiles
+${LINUX_USER_HOME}/.dotfiles/bin/purge-system-logfiles
 
 
