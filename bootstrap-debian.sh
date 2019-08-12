@@ -39,6 +39,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   file \
   git \
   mtr-tiny \
+  ncurses-bin ncurses-term libncurses5-dev \
   net-tools \
   openssl \
   rsync \
@@ -331,10 +332,16 @@ chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.dotfiles
 
 # TODO: backup
 set +e
+# Symlink .tmux folder
 rm -rf ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
 ln -s ${LINUX_USER_HOME}/.dotfiles/tmux ${LINUX_USER_HOME}/.tmux
 ln -s ${LINUX_USER_HOME}/.tmux/tmux.conf ${LINUX_USER_HOME}/.tmux.conf
+# Create samlpe tmux user.conf
 cp ${LINUX_USER_HOME}/.tmux/user.conf-sample ${LINUX_USER_HOME}/.tmux/user.conf
+# Clone tmux plugins
+cd ${LINUX_USER_HOME}/.dotfiles/tmux
+git clone https://github.com/tmux-plugins/tpm.git tpm
+git clone https://github.com/tmux-plugins/tmux-resurrect tmux-resurrect
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
 set -e
 

@@ -1,13 +1,28 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-# dotfiles and submodules
-cd ${HOME}/.dotfiles && \
-git pull; \
-git submodule update --init --recursive; \
-git pull --recurse-submodules; \
-git submodule update --force --remote; \
-git submodule sync
-cd
+update_repositories() {
+    # https://stackoverflow.com/questions/24628076/bash-convert-n-delimited-strings-into-array
+    # https://unix.stackexchange.com/questions/92187/setting-ifs-for-a-single-statement
+
+    # https://unix.stackexchange.com/questions/12902/how-to-run-find-exec
+    # https://stackoverflow.com/questions/27658675/how-to-remove-last-n-characters-from-a-string-in-bash
+
+    IFS=$'\n' local GIT_REPOSITORIES=`find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \;`
+
+    local TIMEOUT=10s
+    local CURDIR=$PWD
+    for REPOSITORY in ${GIT_REPOSITORIES[@]}
+    do
+      cd "$REPOSITORY"
+      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git fetch --all >/dev/null 2>&1 && \
+      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git pull >/dev/null 2>&1 && \
+      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git submodule foreach 'git pull || :' >/dev/null 2>&1
+      cd ${CURDIR}
+    done
+}
+
+cd ~/.dotfiles && update_repositories
+cd ~/.tmux/plugins && update_repositories
 
 # zim update
 zsh ${ZIM_HOME}/tools/zim_update

@@ -1,2 +1,4 @@
 tmux/user.conf
+tmux/plugins
+tmux/data
 config/nvim/config/user.vim
