@@ -3,7 +3,7 @@
 ## Installation instructions
 ## If you trust in one-liner installers, then copy/paste following line (OR clone this gist, exit and execute):
 ##
-# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl ca-cacert ca-certificates
+# apt-get update && apt-get -yqq --no-install-recommends --no-install-suggests install curl ca-certificates
 #
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrius/.dotfiles/master/bootstrap-debian.sh)"
 
@@ -235,9 +235,6 @@ for PACKAGE in "${PACKAGES[@]}"; do
   brew install ${PACKAGE}
 done
 
-brew update
-brew upgrade
-
 PACKAGES=( \
   ag \
   connect \
@@ -287,27 +284,12 @@ set +e
 
 set -e
 ################################################################################
-## vim
-##
-
-## --with-client-server requires xorg
-# brew install linuxbrew/xorg/xorg
-
-## Choice one of options with vim:
-## --with-lua
-## or
-## --with-luajit
-# su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install --with-gettext --with-lua --with-tcl vim'
-# brew install vim
-# set +e
-# apt-get -yqq purge vim*
-# ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vim >/dev/null 2>&1
-# ln -s /home/linuxbrew/.linuxbrew/bin/vim /usr/bin/vi  >/dev/null 2>&1
-# set -e
 
 brew install python@2 python3 neovim
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim virtualenv'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim virtualenv'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade virtualenv'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade virtualenv'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; gem install neovim'
 set +e
 apt-get -yqq purge vim*
@@ -353,13 +335,15 @@ ln -s ${LINUX_USER_HOME}/.config/nvim ${LINUX_USER_HOME}/.vim
 ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.vim ${LINUX_USER_HOME}/.config/nvim/config/local.vim
 ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.plugins.yaml ${LINUX_USER_HOME}/.config/nvim/config/local.plugins.yaml
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.config
-su - ${LINUX_USER} zsh -c 'cd ~/.config/nvim && make install'
+su - ${LINUX_USER} zsh -c 'source ~/.zshr; cd ~/.config/nvim; ./venv.sh; make'
 set -e
 
 ################################################################################
 ## Post-install
 ##
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew cleanup --prune all'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew update; brew upgrade; brew cleanup --prune all'
 apt-get clean all
+/home/${LINUX_USER_HOME}/.dotfiles/bin/purge-system-logfiles
+
 
