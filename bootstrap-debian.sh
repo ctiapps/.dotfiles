@@ -221,6 +221,7 @@ PACKAGES=( \
   rsync \
   ruby \
   libpcap sngrep \
+  luarocks \
   sshuttle \
   the_silver_searcher \
   tmux \
@@ -288,8 +289,10 @@ set -e
 brew install python@2 python3 neovim
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade virtualenv'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade neovim'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade virtualenv'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade neovim'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; gem install neovim'
 set +e
 apt-get -yqq purge vim*
@@ -322,8 +325,10 @@ ln -s ${LINUX_USER_HOME}/.tmux/tmux.conf ${LINUX_USER_HOME}/.tmux.conf
 cp ${LINUX_USER_HOME}/.tmux/user.conf-sample ${LINUX_USER_HOME}/.tmux/user.conf
 # Clone tmux plugins
 cd ${LINUX_USER_HOME}/.dotfiles/tmux
+mkdir -p plugins data
 git clone https://github.com/tmux-plugins/tpm.git tpm
 git clone https://github.com/tmux-plugins/tmux-resurrect tmux-resurrect
+cd
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
 set -e
 
