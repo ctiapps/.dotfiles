@@ -328,6 +328,7 @@ cd ${LINUX_USER_HOME}/.dotfiles/tmux
 mkdir -p plugins data
 git clone https://github.com/tmux-plugins/tpm.git tpm
 git clone https://github.com/tmux-plugins/tmux-resurrect tmux-resurrect
+git clone https://github.com/tmux-plugins/tmux-yank tmux-yank
 cd
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
 set -e

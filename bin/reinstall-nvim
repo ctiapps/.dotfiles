@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+find ${HOME}/.cache/vim/* -maxdepth 0 -path ${HOME}/.cache/vim/undo -prune -o -path ${HOME}/.cache/vim/session -prune -o -print -exec rm -rf {} \;
+
+gem install neovim
+pip2 install --user --upgrade virtualenv
+pip2 install --user --upgrade pynvim
+pip2 install --user --upgrade neovim
+pip3 install --user --upgrade virtualenv
+pip3 install --user --upgrade pynvim
+pip3 install --user --upgrade neovim
+
+cd ~/.config/nvim
+git fetch --all
+git pull
+
+./venv.sh
+~/.cache/vim/venv/neovim2/bin/pip install neovim
+~/.cache/vim/venv/neovim3/bin/pip install neovim
+
+nvim -c "call dein#clear_state()"
+nvim -c "call dein#remote_plugins()"
+
+echo ">>> run in the nvim following commands"
+echo ":call dein#clear_state()"
+echo ":call dein#remote_plugins()"

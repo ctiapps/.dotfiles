@@ -21,7 +21,7 @@
 # Utils
 # ---------
 
-- repo: Shougo/denite.nvim
+# - repo: Shougo/denite.nvim
 - repo: skywind3000/asyncrun.vim
 - repo: eshion/vim-sync
 

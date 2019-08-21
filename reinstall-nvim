@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-find ${HOME}/.cache/vim/* -maxdepth 0 -path ${HOME}/.cache/vim/undo -prune -o -path ${HOME}/.cache/vim/session -prune -o -print -exec rm -rf {} \;

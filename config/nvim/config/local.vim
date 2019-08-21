@@ -144,9 +144,18 @@ if dein#tap('caw.vim')
   call InitCaw()
 endif
 
-" " Load user custom local settings
-" if filereadable(expand('$VIMPATH/config/user.vim'))
-"   call s:source_file('user.vim')
-" endif
+" Remove trailing whitespace on write
+autocmd BufWritePre * %s/\s\+$//e
+
+" Load user custom local settings
+if filereadable(expand('$VIMPATH/config/user.vim'))
+  call s:source_file('user.vim')
+endif
+
+" shift+arrow selection
+nmap <silent> <S-Up> :TmuxNavigateUp<cr>
+nmap <silent> <S-Down> :TmuxNavigateDown<cr>
+nmap <silent> <S-Left> :TmuxNavigateLeft<cr>
+nmap <silent> <S-Right> :TmuxNavigateRight<cr>
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
