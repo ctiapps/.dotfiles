@@ -8,6 +8,10 @@
 - repo: NLKNguyen/papercolor-theme
 - repo: vim-scripts/peaksea
 - repo: lifepillar/vim-solarized8
+- repo: mhartington/oceanic-next
+- repo: jdkanani/vim-material-theme
+
+# - repo: ryanoasis/vim-devicons
 
 # Tabline, statusline
 # ---------
@@ -24,6 +28,7 @@
 # - repo: Shougo/denite.nvim
 - repo: skywind3000/asyncrun.vim
 - repo: eshion/vim-sync
+# - repo: roxma/vim-tmux-clipboard
 
 # Languages
 # ---------

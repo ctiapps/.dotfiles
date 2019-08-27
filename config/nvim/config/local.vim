@@ -4,7 +4,7 @@
 map <Leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <LocalLeader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-let ssh_user=$LC_SSH_USER
+let g:ssh_user=$LC_SSH_USER
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
@@ -40,14 +40,6 @@ let g:lightline={
 " => airline
 " https://github.com/vim-airline/vim-airline-themes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_extensions = []
-" " Enable the list of buffers
-" let g:airline#extensions#tabline#enabled=1
-" " Show just the filename
-" let g:airline#extensions#tabline#fnamemod=':t'
-" let g:airline#extensions#whitespace#enabled=1
-
-let g:airline_powerline_fonts=1
 " let g:airline_theme='atomic'
 " let g:airline_theme='badwolf'
 " let g:airline_theme='silver'
@@ -56,6 +48,7 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='ayu_dark'
 " let g:airline_theme='tomorrow'
 " let g:airline_theme='papercolor'
+" let g:airline_theme='oceanicnext'
 " let g:airline_theme='bubblegum'
 " let g:airline_theme='cobalt2'
 " let g:airline_theme='sol'
@@ -69,13 +62,32 @@ let g:tmuxline_powerline_separators=1
 "    \ 'right_alt' : '',
 "    \ 'space' : ' '}
 
+" " To disable extensions, uncomment following line:
+" let g:airline_extensions = []
+
+let g:airline_powerline_fonts=1
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled=1
+" show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod=':t'
+let g:airline#extensions#whitespace#enabled=1
+
+" show git branch
+let g:airline#extensions#branch#enabled=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Custom UI and colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorscheme hemisu
 
 " colorscheme noctu
 
 " colorscheme summerfruit256
 
-colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
       \   'theme': {
       \     'default': {
@@ -83,13 +95,18 @@ let g:PaperColor_Theme_Options = {
       \     }
       \   }
       \ }
+" colorscheme PaperColor
+
+let g:oceanic_next_terminal_bold=1
+let g:oceanic_next_terminal_italic=1
+" colorscheme OceanicNext
 
 " colorscheme peaksea
 
-let ayucolor="light"  " for light version of theme
+" let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
-" colorscheme ayu
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
 " let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";
@@ -109,11 +126,17 @@ let ayucolor="light"  " for light version of theme
 " colorscheme solarized8_flat " flat variant
 
 set background=dark
-" if ssh_user == 'andrius'
-"   set background=light
-"   " colorscheme ayu
-" endif
 
+if ssh_user == 'andrius'
+  let g:airline_theme='ayu_mirage'
+  set background=light
+  let ayucolor="light"
+  colorscheme ayu
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Customisation of rafi vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
@@ -147,15 +170,23 @@ endif
 " Remove trailing whitespace on write
 autocmd BufWritePre * %s/\s\+$//e
 
+" " shift+arrow selection
+" nmap <silent> <S-Up> :TmuxNavigateUp<cr>
+" nmap <silent> <S-Down> :TmuxNavigateDown<cr>
+" nmap <silent> <S-Left> :TmuxNavigateLeft<cr>
+" nmap <silent> <S-Right> :TmuxNavigateRight<cr>
+
 " Load user custom local settings
 if filereadable(expand('$VIMPATH/config/user.vim'))
   call s:source_file('user.vim')
 endif
 
-" shift+arrow selection
-nmap <silent> <S-Up> :TmuxNavigateUp<cr>
-nmap <silent> <S-Down> :TmuxNavigateDown<cr>
-nmap <silent> <S-Left> :TmuxNavigateLeft<cr>
-nmap <silent> <S-Right> :TmuxNavigateRight<cr>
+" Disable termguicolors for mosh sessions
+let mosh_session=$LC_MOSH_SESSION
+if mosh_session == ''
+  set termguicolors
+else
+  set termguicolors!
+endif
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
