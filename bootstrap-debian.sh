@@ -286,7 +286,7 @@ set +e
 set -e
 ################################################################################
 
-brew install python@2 python3 neovim
+brew install python@2 python3 ruby neovim
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade virtualenv'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade neovim'

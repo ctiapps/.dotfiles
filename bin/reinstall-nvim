@@ -2,6 +2,9 @@
 
 find ${HOME}/.cache/vim/* -maxdepth 0 -path ${HOME}/.cache/vim/undo -prune -o -path ${HOME}/.cache/vim/session -prune -o -print -exec rm -rf {} \;
 
+brew install python@2 python3 ruby neovim
+brew link --overwrite ruby
+
 gem install neovim
 pip2 install --user --upgrade virtualenv
 pip2 install --user --upgrade pynvim
