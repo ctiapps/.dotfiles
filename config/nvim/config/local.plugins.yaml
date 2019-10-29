@@ -29,13 +29,18 @@
 - repo: skywind3000/asyncrun.vim
 - repo: eshion/vim-sync
 # - repo: roxma/vim-tmux-clipboard
+- repo: mattn/gist-vim
+- repo: mattn/webapi-vim
 
 # Languages
 # ---------
 
 - {repo: elzr/vim-json, on_ft: json}
 - {repo: vim-ruby/vim-ruby, on_ft: ruby}
-- {repo: rhysd/vim-crystal, on_ft: crystal}
+- repo: rhysd/vim-crystal
+  on_ft: crystal
+  hook_source: |
+    let g:crystal_auto_format=1
 - {repo: elixir-lang/vim-elixir, on_ft: elixir}
 - {repo: ipoddubny/asterisk-vim, on_ft: asterisk}
 - {repo: vim-scripts/ael.vim, on_ft: ael}
