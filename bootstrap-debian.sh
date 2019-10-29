@@ -81,6 +81,41 @@ chmod 0440 /etc/sudoers.d/${LINUX_USER};
 
 
 ################################################################################
+## Clone and bootstrap dotfiles
+##
+if [ ! -d "${LINUX_USER_HOME}/.dotfiles" ] ; then
+  git clone https://github.com/andrius/.dotfiles.git ${LINUX_USER_HOME}/.dotfiles
+else
+  echo ".dotfiles folder is already there, trying to update"
+  cd "${LINUX_USER_HOME}/.dotfiles"
+  git fetch --all
+  git pull
+fi
+
+cd "${LINUX_USER_HOME}/.dotfiles"
+mkdir -p local
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.dotfiles
+
+# TODO: backup
+set +e
+# Symlink .tmux folder
+rm -rf ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
+ln -s ${LINUX_USER_HOME}/.dotfiles/tmux ${LINUX_USER_HOME}/.tmux
+ln -s ${LINUX_USER_HOME}/.tmux/tmux.conf ${LINUX_USER_HOME}/.tmux.conf
+# Create samlpe tmux user.conf
+cp ${LINUX_USER_HOME}/.tmux/user.conf-sample ${LINUX_USER_HOME}/.tmux/user.conf
+# Clone tmux plugins
+cd ${LINUX_USER_HOME}/.dotfiles/tmux
+mkdir -p plugins data
+git clone https://github.com/tmux-plugins/tpm.git tpm
+git clone https://github.com/tmux-plugins/tmux-resurrect tmux-resurrect
+git clone https://github.com/tmux-plugins/tmux-yank tmux-yank
+cd
+chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
+set -e
+
+
+################################################################################
 ## Installing docker
 ##
 
@@ -299,41 +334,7 @@ apt-get -yqq purge vim*
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
 ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
-set -e
 
-
-################################################################################
-## Clone and bootstrap dotfiles
-##
-if [ ! -d "${LINUX_USER_HOME}/.dotfiles" ] ; then
-  git clone https://github.com/andrius/.dotfiles.git ${LINUX_USER_HOME}/.dotfiles
-else
-  echo ".dotfiles folder is already there, trying to update"
-  cd "${LINUX_USER_HOME}/.dotfiles"
-  git fetch --all
-  git pull
-fi
-chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.dotfiles
-
-# TODO: backup
-set +e
-# Symlink .tmux folder
-rm -rf ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
-ln -s ${LINUX_USER_HOME}/.dotfiles/tmux ${LINUX_USER_HOME}/.tmux
-ln -s ${LINUX_USER_HOME}/.tmux/tmux.conf ${LINUX_USER_HOME}/.tmux.conf
-# Create samlpe tmux user.conf
-cp ${LINUX_USER_HOME}/.tmux/user.conf-sample ${LINUX_USER_HOME}/.tmux/user.conf
-# Clone tmux plugins
-cd ${LINUX_USER_HOME}/.dotfiles/tmux
-mkdir -p plugins data
-git clone https://github.com/tmux-plugins/tpm.git tpm
-git clone https://github.com/tmux-plugins/tmux-resurrect tmux-resurrect
-git clone https://github.com/tmux-plugins/tmux-yank tmux-yank
-cd
-chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}/.tmux.conf
-set -e
-
-set +e
 # We use rafi nvim config with some modifications
 mkdir -p ${LINUX_USER_HOME}/.config
 git clone git://github.com/rafi/vim-config.git ${LINUX_USER_HOME}/.config/nvim

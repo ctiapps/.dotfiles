@@ -1,5 +1,5 @@
-private
-tmux/user.conf
-tmux/plugins
-tmux/data
-config/nvim/config/user.vim
+/local
+/tmux/user.conf
+/tmux/plugins
+/tmux/data
+/config/nvim/config/user.vim
