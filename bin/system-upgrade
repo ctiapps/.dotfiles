@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+is_sudo() {
+    local user=$(whoami)
+    local group="sudo"
+    if id -nG "${user}" | grep -qw "${group}"; then
+      return 0
+    else
+      return 1
+    fi
+}
+
 update_repositories() {
     # https://stackoverflow.com/questions/24628076/bash-convert-n-delimited-strings-into-array
     # https://unix.stackexchange.com/questions/92187/setting-ifs-for-a-single-statement
@@ -32,21 +42,34 @@ source ${ZIM_HOME}/tools/zim_clean_cache
 LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
 COMPOSE_VERSION=${LATEST_URL##*/}
 CURRENT_VERSION=`/usr/local/bin/docker-compose --version 2>/dev/null | awk -F " |," '{print $3}'`
-if [ "${CURRENT_VERSION}" != "${COMPOSE_VERSION}" ]
-then
-    DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
-    sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
+if [ "${CURRENT_VERSION}" != "${COMPOSE_VERSION}" ]; then
+    if is_sudo; then
+        DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
+        sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+    else
+        echo "Docker-compose should be updated from ${CURRENT_VERSION} to the ${COMPOSE_VERSION}, but user aren't in sudo group."
+    fi
 else
     echo "Docker-compose version is up to date"
 fi
 
 # apt-get
-sudo bash -c 'apt-get update && apt-get -yqq upgrade && apt-get -yqq autoremove && apt-get clean all'
+if is_sudo; then
+    sudo bash -c 'apt-get update && apt-get -yqq upgrade && apt-get -yqq autoremove && apt-get clean all'
+else
+    echo "Cannot upgrade apt-packages, user should be in sudo group"
+fi
 
 # brew
 brew update
 brew upgrade
 brew cleanup --prune all --verbose
+if is_sudo; then
+    sudo chgrp -R brew /home/linuxbrew
+    sudo chmod -R g+w  /home/linuxbrew
+    sudo chgrp -R brew $(brew --prefix)/*
+    sudo chmod -R g+w  $(brew --prefix)/*
+fi
 
 ~/.dotfiles/bin/reinstall-nvim

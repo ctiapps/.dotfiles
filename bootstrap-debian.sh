@@ -76,6 +76,8 @@ else
     ${LINUX_USER}
 fi
 usermod -aG sudo ${LINUX_USER}
+addgroup --system brew
+usermod -aG brew ${LINUX_USER}
 echo "${LINUX_USER} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${LINUX_USER}; \
 chmod 0440 /etc/sudoers.d/${LINUX_USER};
 
@@ -158,7 +160,10 @@ set +e
 # rm -rf /home/linuxbrew/.linuxbrew
 mkdir -p /home/linuxbrew/.linuxbrew \
 && (
-  chown -R ${LINUX_USER}:${LINUX_USER} /home/linuxbrew/.linuxbrew
+  chgrp -R brew /home/linuxbrew
+  chmod -R g+w  /home/linuxbrew
+  chgrp -R brew /home/linuxbrew/.linuxbrew/*
+  chmod -R g+w  /home/linuxbrew/.linuxbrew/*
   su - ${LINUX_USER} --shell `which bash` -c 'git clone https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew'
   su - ${LINUX_USER} --shell `which bash` -c 'cd /home/linuxbrew/.linuxbrew && git config --local --replace-all homebrew.private true'
 
@@ -350,7 +355,9 @@ set -e
 ##
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew >/dev/null 2>&1; brew update; brew upgrade; brew cleanup --prune all'
+chgrp -R brew /home/linuxbrew
+chmod -R g+w  /home/linuxbrew
+chgrp -R brew /home/linuxbrew/.linuxbrew/*
+chmod -R g+w  /home/linuxbrew/.linuxbrew/*
 apt-get clean all
 ${LINUX_USER_HOME}/.dotfiles/bin/purge-system-logfiles
-
-
