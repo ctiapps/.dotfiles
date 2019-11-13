@@ -249,7 +249,7 @@ PACKAGES=( \
   docker-compose-completion \
   docker-machine-completion \
   fzf \
-  git git-flow ghi hub tig \
+  git git-flow git-crypt gist ghi hub tig \
   httpie \
   htop \
   mc \
@@ -270,6 +270,7 @@ PACKAGES=( \
   util-linux \
   w3m \
   wget \
+  yamllint \
   yank \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
