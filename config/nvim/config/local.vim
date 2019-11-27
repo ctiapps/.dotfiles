@@ -181,12 +181,12 @@ if filereadable(expand('$VIMPATH/config/user.vim'))
   call s:source_file('user.vim')
 endif
 
-" Disable termguicolors for mosh sessions
-let mosh_session=$LC_MOSH_SESSION
-if mosh_session == ''
-  set termguicolors
-else
-  set termguicolors!
-endif
+" " Disable termguicolors for mosh sessions
+" let mosh_session=$LC_MOSH_SESSION
+" if mosh_session == ''
+"   set termguicolors
+" else
+"   set termguicolors!
+" endif
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

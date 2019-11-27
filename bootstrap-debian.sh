@@ -248,14 +248,17 @@ PACKAGES=( \
   docker-completion \
   docker-compose-completion \
   docker-machine-completion \
+  ffmpeg \
   fzf \
   git git-flow git-crypt gist ghi hub tig \
   httpie \
   htop \
+  imagemagick \
   mc \
   mosh \
   nano \
   nmap \
+  pngquant \
   proxychains-ng \
   rbenv \
   rsync \
@@ -272,6 +275,7 @@ PACKAGES=( \
   wget \
   yamllint \
   yank \
+  zip \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
   brew install ${PACKAGE}
@@ -296,8 +300,11 @@ PACKAGES=( \
   tig \
   tmux-mem-cpu-load \
   tmux \
+  unzip \
   yamllint \
   yank \
+  youtube-dl \
+  zip \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
   apt-get -yqq purge ${PACKAGE}*
@@ -312,10 +319,8 @@ set -e
 set +e
 
 # brew install \
-#   ffmpeg \
 #   mplayer \
 #   prettyping \
-#   youtube-dl
 #
 # # Crystal-lang
 # brew tap veelenga/tap
