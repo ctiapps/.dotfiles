@@ -332,10 +332,8 @@ set +e
 set -e
 ################################################################################
 
-brew install python@2 python3 ruby neovim
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade virtualenv'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade pynvim'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip2 install --user --upgrade neovim'
+brew install python3 ruby
+brew install --HEAD neovim
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade virtualenv'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade neovim'
@@ -353,7 +351,7 @@ ln -s ${LINUX_USER_HOME}/.config/nvim ${LINUX_USER_HOME}/.vim
 ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.vim ${LINUX_USER_HOME}/.config/nvim/config/local.vim
 ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.plugins.yaml ${LINUX_USER_HOME}/.config/nvim/config/local.plugins.yaml
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.config
-su - ${LINUX_USER} zsh -c 'source ~/.zshr; cd ~/.config/nvim; ./venv.sh; make'
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; cd ~/.config/nvim; ./venv.sh; make'
 set -e
 
 ################################################################################
