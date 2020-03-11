@@ -181,6 +181,7 @@ if filereadable(expand('$VIMPATH/config/user.vim'))
   call s:source_file('user.vim')
 endif
 
+set termguicolors
 " " Disable termguicolors for mosh sessions
 " let mosh_session=$LC_MOSH_SESSION
 " if mosh_session == ''

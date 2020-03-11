@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+mkdir -p "$HOME/.dotfiles/zsh"
+git clone https://github.com/sindresorhus/pure.git "$HOME/.dotfiles/zsh/pure"
+cd "$HOME/.dotfiles/zsh/pure"
+git pull
+
+autoload -U promptinit; promptinit
+prompt -s pure
