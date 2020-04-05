@@ -333,7 +333,7 @@ set -e
 ################################################################################
 
 brew install python3 ruby
-brew install --HEAD neovim
+brew install neovim
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade virtualenv'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim'
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade neovim'

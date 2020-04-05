@@ -5,6 +5,7 @@ map <Leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <LocalLeader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 let g:ssh_user=$LC_SSH_USER
+let g:linux_user=$USER
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
@@ -65,12 +66,17 @@ let g:tmuxline_powerline_separators=1
 " " To disable extensions, uncomment following line:
 " let g:airline_extensions = []
 
+let g:airline_theme = get(g:, 'airline_theme', 'dark')
+if exists('*airline#themes#{g:airline_theme}#refresh')
+	call airline#themes#{g:airline_theme}#refresh()
+endif
+
 let g:airline_powerline_fonts=1
 
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled=1
 " show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_show=1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod=':t'
@@ -126,6 +132,13 @@ colorscheme ayu
 " colorscheme solarized8_flat " flat variant
 
 set background=dark
+
+if linux_user == 'ak'
+  let g:airline_theme='ayu_mirage'
+  set background=light
+  let ayucolor="light"
+  colorscheme ayu
+endif
 
 if ssh_user == 'andrius'
   let g:airline_theme='ayu_mirage'
