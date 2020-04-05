@@ -226,8 +226,10 @@ for template_file ( \${ZDOTDIR:-\${HOME}}/.zim/templates/* ); do
   sed -i.bak -e "s/zprompt_theme='.*'/zprompt_theme='steeef magenta yellow green cyan magenta ! green + red ?,b yellow $'/g" ~/.zimrc
   rm .zimrc.bak
 EOT
+set +e
 su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
 rm /tmp/zim-install.zsh
+set -e
 
 set +e
 rm ${LINUX_USER_HOME}/.bash*
