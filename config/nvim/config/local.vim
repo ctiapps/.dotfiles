@@ -137,17 +137,17 @@ colorscheme ayu
 
 set background=dark
 
-if linux_user == 'ak'
-  set background=light
-  let ayucolor="light"
-  colorscheme ayu
-endif
-
-if ssh_user == 'andrius'
-  set background=light
-  let ayucolor="light"
-  colorscheme ayu
-endif
+" if linux_user == 'ak'
+"   set background=light
+"   let ayucolor="light"
+"   colorscheme ayu
+" endif
+"
+" if ssh_user == 'andrius'
+"   set background=light
+"   let ayucolor="light"
+"   colorscheme ayu
+" endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Customisation of rafi vim
