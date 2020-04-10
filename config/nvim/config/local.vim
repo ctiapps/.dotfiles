@@ -114,8 +114,8 @@ let g:oceanic_next_terminal_italic=1
 " colorscheme peaksea
 
 " let ayucolor="light"  " for light version of theme
-let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
+" let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
 colorscheme ayu
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";

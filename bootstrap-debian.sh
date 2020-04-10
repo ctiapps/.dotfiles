@@ -227,8 +227,9 @@ for template_file ( \${ZDOTDIR:-\${HOME}}/.zim/templates/* ); do
   rm .zimrc.bak
 EOT
 set +e
-su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
+# su - ${LINUX_USER} sh -c "zsh /tmp/zim-install.zsh"
 rm /tmp/zim-install.zsh
+su - ${LINUX_USER} sh -c "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh"
 set -e
 
 set +e
