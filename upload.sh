@@ -22,7 +22,7 @@ RSYNC_SKIP_COMPRESS=3fr/3g2/3gp/3gpp/7z/aac/ace/amr/apk/appx/appxbundle/arc/arj/
 ssh ${REMOTE} 'mkdir -p ~/.dotfiles' && \
 /usr/bin/rsync ${DRY_RUN} \
   -aHAXxvP \
-  --links --copy-unsafe-links --munge-links \
+  --links \
   --numeric-ids \
   --delete \
   --skip-compress=${RSYNC_SKIP_COMPRESS} \
