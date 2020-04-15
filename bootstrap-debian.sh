@@ -258,7 +258,6 @@ PACKAGES=( \
   htop \
   imagemagick \
   mc \
-  mosh \
   nano \
   nmap \
   pngquant \
@@ -278,11 +277,14 @@ PACKAGES=( \
   wget \
   yamllint \
   yank \
+  z
   zip \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
   brew install ${PACKAGE}
 done
+
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; brew install --HEAD mosh'
 
 PACKAGES=( \
   ag \
