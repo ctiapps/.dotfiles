@@ -86,7 +86,11 @@ chmod 0440 /etc/sudoers.d/${LINUX_USER};
 ## Clone and bootstrap dotfiles
 ##
 if [ ! -d "${LINUX_USER_HOME}/.dotfiles" ] ; then
-  git clone https://github.com/andrius/.dotfiles.git ${LINUX_USER_HOME}/.dotfiles
+  if [ ! -d "${HOME}/.dotfiles" ] ; then
+    git clone https://github.com/andrius/.dotfiles.git ${LINUX_USER_HOME}/.dotfiles
+  else
+    cp -R ${HOME}/.dotfiles ${LINUX_USER_HOME}/
+  fi
 else
   echo ".dotfiles folder is already there, trying to update"
   cd "${LINUX_USER_HOME}/.dotfiles"
