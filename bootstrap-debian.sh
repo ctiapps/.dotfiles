@@ -8,6 +8,7 @@
 # bash -c "$(curl -fsSL https://raw.githubusercontent.com/andrius/.dotfiles/master/bootstrap-debian.sh)"
 
 set -x
+
 ################################################################################
 ## Settings
 ##
@@ -113,6 +114,7 @@ cp ${LINUX_USER_HOME}/.tmux/user.conf-sample ${LINUX_USER_HOME}/.tmux/user.conf
 # Clone tmux plugins
 cd ${LINUX_USER_HOME}/.dotfiles/tmux
 mkdir -p plugins data
+cd plugins
 git clone https://github.com/tmux-plugins/tpm.git tpm
 git clone https://github.com/tmux-plugins/tmux-resurrect tmux-resurrect
 git clone https://github.com/tmux-plugins/tmux-yank tmux-yank
