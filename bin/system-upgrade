@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 is_sudo() {
-    local user=$(whoami)
+    local user; user=$(whoami)
     local group="sudo"
     if id -nG "${user}" | grep -qw "${group}"; then
       return 0
@@ -17,17 +17,20 @@ update_repositories() {
     # https://unix.stackexchange.com/questions/12902/how-to-run-find-exec
     # https://stackoverflow.com/questions/27658675/how-to-remove-last-n-characters-from-a-string-in-bash
 
-    IFS=$'\n' local GIT_REPOSITORIES=`find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \;`
+    local GIT_REPOSITORIES
+    # IFS=$'\n' GIT_REPOSITORIES=$(find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \; | grep -v "./local\|^.$" | sort)
+    GIT_REPOSITORIES=$(find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \; | grep -v "./local\|^.$" | sort)
 
+    local CURDIR; CURDIR=$(PWD)
     local TIMEOUT=10s
-    local CURDIR=$PWD
-    for REPOSITORY in ${GIT_REPOSITORIES[@]}
+    for REPOSITORY in "${GIT_REPOSITORIES[@]}"
     do
-      cd "$REPOSITORY"
-      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git fetch --all >/dev/null 2>&1 && \
-      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git pull >/dev/null 2>&1 && \
+      cd "${REPOSITORY}" && (
+      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git fetch --all && \
+      timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git pull && \
       timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git submodule foreach 'git pull || :' >/dev/null 2>&1
-      cd ${CURDIR}
+      )
+      cd "${CURDIR}"
     done
 }
 
@@ -54,24 +57,24 @@ cd ~/.tmux/plugins && update_repositories
 #     echo "Docker-compose version is up to date"
 # fi
 
-# apt-get
-if is_sudo; then
+case $OSTYPE in
+linux*)
+  if is_sudo; then
     sudo bash -c 'apt-get update && apt-get -yqq upgrade && apt-get -yqq autoremove && apt-get clean all'
-else
-    echo "Cannot upgrade apt-packages, user should be in sudo group"
-fi
-
-if is_sudo; then
     sudo chgrp -R brew /home/linuxbrew
     sudo chmod -R g+w  /home/linuxbrew
-    sudo chgrp -R brew $(brew --prefix)/*
-    sudo chmod -R g+w  $(brew --prefix)/*
-    sudo chmod -R u+w  $(brew --prefix)/*
-fi
+    sudo chgrp -R brew "$(brew --prefix)/*"
+    sudo chmod -R g+w  "$(brew --prefix)/*"
+    sudo chmod -R u+w  "$(brew --prefix)/*"
+  else
+    echo "Cannot upgrade apt-packages, user should be in sudo group"
+  fi
+  ;;
+esac
 
 # brew
 brew update
 brew upgrade
 brew cleanup --prune all --verbose
 
-~/.dotfiles/bin/reinstall-nvim
+# ~/.dotfiles/bin/reinstall-nvim

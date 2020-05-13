@@ -91,7 +91,7 @@ let g:airline#extensions#branch#enabled=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom UI and colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=light
+set background=dark
 
 " colorscheme hemisu
 
@@ -106,7 +106,7 @@ let g:PaperColor_Theme_Options = {
      \     }
      \   }
      \ }
-colorscheme PaperColor
+" colorscheme PaperColor
 
 let g:oceanic_next_terminal_bold=1
 let g:oceanic_next_terminal_italic=1
@@ -118,7 +118,7 @@ let g:oceanic_next_terminal_italic=1
 " let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
-" colorscheme ayu
+colorscheme ayu
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
 " let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";

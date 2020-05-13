@@ -7,6 +7,7 @@ brew install --HEAD mosh
 
 PACKAGES=( \
   connect \
+  coreutils \
   curl \
   diff-so-fancy \
   docker-completion \
