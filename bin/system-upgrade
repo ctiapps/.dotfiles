@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 is_sudo() {
-    local user; user=$(whoami)
-    local group="sudo"
-    if id -nG "${user}" | grep -qw "${group}"; then
-      return 0
-    else
-      return 1
-    fi
+  local group="sudo"
+  if id -nG "${USER}" | grep -qw "${group}"; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 brew_package_version() {
@@ -18,6 +17,7 @@ brew_package_version() {
   package="$1"
   brew_prefix="^$(brew --prefix)/Cellar"
   version=$(brew info "${package}" | grep "${brew_prefix}" | awk -F "${brew_prefix}/" '{print $2}' | awk -F '/| ' '{print $2}')
+
   # "return" a string value
   echo "${version}"
 }
@@ -36,13 +36,16 @@ update_repositories() {
     # https://stackoverflow.com/questions/27658675/how-to-remove-last-n-characters-from-a-string-in-bash
 
     local GIT_REPOSITORIES
-    IFS=$'\n' \
-    GIT_REPOSITORIES=$(find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \; | grep -v "./local\|^.$" | sort)
+    SAVEIFS=${IFS}  # Save current IFS
+    IFS=$'\n'       # Change IFS to new line
+    GIT_REPOSITORIES=($(find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \; | grep -v "./local\|^.$" | sort))
 
+    echo "Following git sub-repositories will be processed: ${GIT_REPOSITORIES[@]}"
     local CURDIR; CURDIR=$(pwd)
     local TIMEOUT=10s
     for REPOSITORY in "${GIT_REPOSITORIES[@]}"
     do
+      echo "Processing repository ${REPOSITORY}"
       cd "${REPOSITORY}" && (
       timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git fetch --all && \
       timeout --kill-after ${TIMEOUT} --signal=HUP ${TIMEOUT} git pull && \
@@ -50,30 +53,15 @@ update_repositories() {
       )
       cd "${CURDIR}"
     done
+    IFS=${SAVEIFS}  # Restore IFS
 }
 
 cd ~/.dotfiles && update_repositories
-cd ~/.tmux/plugins && update_repositories
 
 # # zim update
 # zsh ${ZIM_HOME}/tools/zim_update
 # source ${ZIM_HOME}/tools/zim_clean_cache
 
-# # docker-compose
-# LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
-# COMPOSE_VERSION=${LATEST_URL##*/}
-# CURRENT_VERSION=`/usr/local/bin/docker-compose --version 2>/dev/null | awk -F " |," '{print $3}'`
-# if [ "${CURRENT_VERSION}" != "${COMPOSE_VERSION}" ]; then
-#     if is_sudo; then
-#         DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m`
-#         sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
-#         sudo chmod +x /usr/local/bin/docker-compose
-#     else
-#         echo "Docker-compose should be updated from ${CURRENT_VERSION} to the ${COMPOSE_VERSION}, but user aren't in sudo group."
-#     fi
-# else
-#     echo "Docker-compose version is up to date"
-# fi
 
 case $OSTYPE in
 linux*)
@@ -103,4 +91,5 @@ done
 
 brew cleanup --prune all --verbose
 
+~/.dotfiles/bin/get-docker-compose
 # ~/.dotfiles/bin/reinstall-nvim
