@@ -10,6 +10,24 @@ is_sudo() {
     fi
 }
 
+brew_package_version() {
+  local package
+  local brew_prefix
+  local version
+
+  package="$1"
+  brew_prefix="^$(brew --prefix)/Cellar"
+  version=$(brew info "${package}" | grep "${brew_prefix}" | awk -F "${brew_prefix}/" '{print $2}' | awk -F '/| ' '{print $2}')
+  # "return" a string value
+  echo "${version}"
+}
+
+is_head() {
+  local version
+  version=$(brew_package_version "$1")
+  [[ "${version}" =~ ^HEAD ]] && return 0 || return 1
+}
+
 update_repositories() {
     # https://stackoverflow.com/questions/24628076/bash-convert-n-delimited-strings-into-array
     # https://unix.stackexchange.com/questions/92187/setting-ifs-for-a-single-statement
@@ -18,7 +36,7 @@ update_repositories() {
     # https://stackoverflow.com/questions/27658675/how-to-remove-last-n-characters-from-a-string-in-bash
 
     local GIT_REPOSITORIES
-    # IFS=$'\n' GIT_REPOSITORIES=$(find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \; | grep -v "./local\|^.$" | sort)
+    IFS=$'\n' \
     GIT_REPOSITORIES=$(find . -type d -iname '*.git' -exec bash -c 'path_with_ext="{}"; path=${path_with_ext%/.*} && echo ${path}' \; | grep -v "./local\|^.$" | sort)
 
     local CURDIR; CURDIR=$(pwd)
@@ -66,8 +84,6 @@ linux*)
     sudo chgrp -R brew "$(brew --prefix)/"
     sudo chmod -R g+w  "$(brew --prefix)/"
     sudo chmod -R u+w  "$(brew --prefix)/"
-  else
-    echo "Cannot upgrade apt-packages, user should be in sudo group"
   fi
   ;;
 esac
@@ -75,6 +91,16 @@ esac
 # brew
 brew update
 brew upgrade
+
+PACKAGES=( \
+  mosh \
+  tmux \
+  neovim \
+)
+for PACKAGE in "${PACKAGES[@]}"; do
+  is_head "${PACKAGE}" && brew reinstall "${PACKAGE}"
+done
+
 brew cleanup --prune all --verbose
 
 # ~/.dotfiles/bin/reinstall-nvim
