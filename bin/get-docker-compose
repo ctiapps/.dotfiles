@@ -1,18 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+. ~/.dotfiles/bin/functions.sh
 
 # LATEST_URL=`curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest`
 LATEST_URL=$(/usr/bin/curl -Ls -o /dev/null -w %{url_effective} https://github.com/docker/compose/releases/latest)
 CURRENT_VERSION=${LATEST_URL##*/}
 DOWNLOAD_URL=https://github.com/docker/compose/releases/download/${CURRENT_VERSION}/docker-compose-$(uname -s)-$(uname -m)
-
-is_sudo() {
-  local group="sudo"
-  if id -nG "${USER}" | grep -qw "${group}"; then
-    return 0
-  else
-    return 1
-  fi
-}
 
 if is_sudo; then
   docker-compose --version > /dev/null 2>&1
