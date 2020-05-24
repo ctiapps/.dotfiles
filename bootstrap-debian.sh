@@ -251,6 +251,7 @@ set -e
 set +e
 # all the packages
 PACKAGES=( \
+  autossh \
   connect \
   curl \
   diff-so-fancy \

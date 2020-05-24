@@ -6,6 +6,7 @@ brew install gcc
 brew install --HEAD mosh
 
 PACKAGES=( \
+  autossh \
   connect \
   coreutils \
   curl \
