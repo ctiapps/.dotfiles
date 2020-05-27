@@ -1,6 +1,6 @@
 " environment variables
 let g:ssh_user=$LC_SSH_USER
-let g:linux_user=$USER
+let g:vim_user=$USER
 
 " Leader mapping here does not working right
 " let g:mapleader=",
@@ -91,13 +91,6 @@ let g:airline#extensions#branch#enabled=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Custom UI and colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
-
-" colorscheme hemisu
-
-" colorscheme noctu
-
-" colorscheme summerfruit256
 
 let g:PaperColor_Theme_Options = {
      \   'theme': {
@@ -106,19 +99,13 @@ let g:PaperColor_Theme_Options = {
      \     }
      \   }
      \ }
-" colorscheme PaperColor
 
 let g:oceanic_next_terminal_bold=1
 let g:oceanic_next_terminal_italic=1
-" colorscheme OceanicNext
-" colorscheme OceanicNextLight
-
-" colorscheme peaksea
 
 " let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
 " let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";
@@ -132,22 +119,35 @@ colorscheme ayu
 " let g:solarized_use16=0             " set to 1 to force using your 16 ANSI terminal colors.
 " let g:solarized_extra_hi_groups=0   " set to 1 to enable Solarized filetype-specific syntax highlighting groups (default is 0). Please be aware that there is a long standing issue with syntax items defined in color schemes.
 
+set background=dark
+" colorscheme hemisu
+" colorscheme noctu
+" colorscheme PaperColor
+" colorscheme OceanicNext
+" colorscheme OceanicNextLight
+" colorscheme peaksea
+" colorscheme ayu
 " colorscheme solarized8_high " high-contrast variant
 " colorscheme solarized8      " the default Solarized theme
 " colorscheme solarized8_low  " low-contrast variant
 " colorscheme solarized8_flat " flat variant
+" colorscheme summerfruit256
 
-" if linux_user == 'ak'
-"   set background=light
-"   let ayucolor="light"
-"   colorscheme ayu
-" endif
-"
-" if ssh_user == 'andrius'
-"   set background=light
-"   let ayucolor="light"
-"   colorscheme ayu
-" endif
+if vim_user == 'ak'
+  set background=light
+  " let ayucolor="light"
+  " colorscheme ayu
+  colorscheme PaperColor
+else
+
+endif
+
+if ssh_user == 'andrius'
+  set background=light
+  " let ayucolor="light"
+  " colorscheme ayu
+  colorscheme PaperColor
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Customisation of rafi vim
