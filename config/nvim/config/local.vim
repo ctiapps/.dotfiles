@@ -133,20 +133,22 @@ set background=dark
 " colorscheme solarized8_flat " flat variant
 " colorscheme summerfruit256
 
+colorscheme PaperColor
+
 if vim_user == 'ak'
   set background=light
   " let ayucolor="light"
   " colorscheme ayu
-  colorscheme PaperColor
-else
-
+  " colorscheme PaperColor
+  colorscheme solarized8_high
 endif
 
 if ssh_user == 'andrius'
   set background=light
   " let ayucolor="light"
   " colorscheme ayu
-  colorscheme PaperColor
+  " colorscheme PaperColor
+  colorscheme solarized8_high
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
