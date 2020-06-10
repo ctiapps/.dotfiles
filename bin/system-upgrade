@@ -60,7 +60,9 @@ PACKAGES=( \
   neovim \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
-  brew_is_head_version "${PACKAGE}" && brew reinstall "${PACKAGE}"
+  brew_is_head_version "${PACKAGE}" && \
+  brew reinstall "${PACKAGE}" && \
+  brew link "${PACKAGE}"
 done
 
 brew cleanup --prune all --verbose
