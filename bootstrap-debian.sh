@@ -274,10 +274,12 @@ PACKAGES=( \
   ruby \
   libpcap sngrep \
   luarocks \
+  speedtest-cli \
   sshuttle \
   the_silver_searcher \
   tmux \
   tmux-mem-cpu-load \
+  tree \
   unzip \
   util-linux \
   w3m \
