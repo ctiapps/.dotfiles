@@ -103,9 +103,9 @@ let g:PaperColor_Theme_Options = {
 let g:oceanic_next_terminal_bold=1
 let g:oceanic_next_terminal_italic=1
 
-" let ayucolor="light"  " for light version of theme
+let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
+" let ayucolor="dark"   " for dark version of theme
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
 " let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";
@@ -137,18 +137,18 @@ colorscheme PaperColor
 
 if vim_user == 'ak'
   set background=light
-  " let ayucolor="light"
-  " colorscheme ayu
+  let ayucolor="light"
+  colorscheme ayu
   " colorscheme PaperColor
-  colorscheme solarized8_high
+  " colorscheme solarized8_high
 endif
 
 if ssh_user == 'andrius'
   set background=light
-  " let ayucolor="light"
-  " colorscheme ayu
+  let ayucolor="light"
+  colorscheme ayu
   " colorscheme PaperColor
-  colorscheme solarized8_high
+  " colorscheme solarized8_high
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
