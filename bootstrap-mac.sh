@@ -20,6 +20,7 @@ PACKAGES=( \
   httpie \
   htop \
   imagemagick \
+  jq \
   mc \
   nano \
   nmap \
