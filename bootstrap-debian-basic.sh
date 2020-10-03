@@ -38,8 +38,10 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   curl \
   file \
   git \
+  libncurses5-dev \
   mtr-tiny \
-  ncurses-bin ncurses-term libncurses5-dev \
+  ncurses-bin \
+  ncurses-term \
   net-tools \
   openssl \
   rsync \
@@ -250,8 +252,10 @@ PACKAGES=( \
   docker-completion \
   docker-compose-completion \
   fzf \
-  git git-flow gist tig \
+  gist \
+  git git-flow \
   htop \
+  libpcap \
   mc \
   mosh \
   nano \
@@ -260,9 +264,10 @@ PACKAGES=( \
   rbenv \
   rsync \
   ruby \
-  libpcap sngrep \
+  sngrep \
   sshuttle \
   the_silver_searcher \
+  tig \
   tmux \
   unzip \
   util-linux \
@@ -283,18 +288,18 @@ PACKAGES=( \
   git-flow \
   htop \
   mc \
+  mosh \
   mosh-client \
   mosh-server \
-  mosh \
   nano \
   nmap \
   proxychains4 \
   rbenv \
-  sshuttle \
   sngrep \
+  sshuttle \
   tig \
-  tmux-mem-cpu-load \
   tmux \
+  tmux-mem-cpu-load \
   unzip \
   yamllint \
   yank \

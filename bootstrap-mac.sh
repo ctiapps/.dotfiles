@@ -11,16 +11,20 @@ PACKAGES=( \
   coreutils \
   curl \
   diff-so-fancy \
+  dive \
   docker-completion \
   docker-compose-completion \
   docker-machine-completion \
   ffmpeg \
   fzf \
   git git-flow git-crypt gist ghi hub tig \
-  httpie \
   htop \
+  httpie \
   imagemagick \
   jq \
+  libpcap sngrep \
+  luarocks \
+  mas \
   mc \
   nano \
   nmap \
@@ -31,9 +35,6 @@ PACKAGES=( \
   rbenv \
   rsync \
   ruby \
-  libpcap sngrep \
-  luarocks \
-  mas \
   speedtest-cli \
   sshuttle \
   the_silver_searcher \

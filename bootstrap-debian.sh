@@ -39,8 +39,10 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   curl \
   file \
   git \
+  libncurses5-dev \
   mtr-tiny \
-  ncurses-bin ncurses-term libncurses5-dev \
+  ncurses-bin \
+  ncurses-term \
   net-tools \
   openssl \
   rsync \
@@ -255,16 +257,24 @@ PACKAGES=( \
   connect \
   curl \
   diff-so-fancy \
+  dive \
   docker-completion \
   docker-compose-completion \
   docker-machine-completion \
   ffmpeg \
   fzf \
-  git git-flow git-crypt gist ghi hub tig \
-  httpie \
+  ghi \
+  gist \
+  git \
+  git-crypt \
+  git-flow \
   htop \
+  httpie \
+  hub \
   imagemagick \
   jq \
+  libpcap sngrep \
+  luarocks \
   mc \
   nano \
   nmap \
@@ -273,11 +283,10 @@ PACKAGES=( \
   rbenv \
   rsync \
   ruby \
-  libpcap sngrep \
-  luarocks \
   speedtest-cli \
   sshuttle \
   the_silver_searcher \
+  tig \
   tmux \
   tmux-mem-cpu-load \
   tree \
@@ -287,7 +296,7 @@ PACKAGES=( \
   wget \
   yamllint \
   yank \
-  z
+  z \
   zip \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
@@ -303,18 +312,18 @@ PACKAGES=( \
   git-flow \
   htop \
   mc \
+  mosh \
   mosh-client \
   mosh-server \
-  mosh \
   nano \
   nmap \
   proxychains4 \
   rbenv \
-  sshuttle \
   sngrep \
+  sshuttle \
   tig \
-  tmux-mem-cpu-load \
   tmux \
+  tmux-mem-cpu-load \
   unzip \
   yamllint \
   yank \
