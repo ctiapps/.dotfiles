@@ -16,7 +16,7 @@ git fetch --all
 git pull
 
 ./venv.sh
-~/.cache/vim/venv/neovim3/bin/pip install neovim || pip install neovim || pip3 install neovim
+~/.cache/vim/venv/bin/pip install neovim || pip install neovim || pip3 install neovim
 
 nvim -c "call dein#clear_state()"
 nvim -c "call dein#remote_plugins()"
