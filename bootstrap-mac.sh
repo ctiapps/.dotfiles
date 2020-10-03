@@ -6,6 +6,7 @@ brew install gcc
 brew install --HEAD mosh
 
 PACKAGES=( \
+  ansible-lint \
   autossh \
   connect \
   coreutils \
@@ -17,27 +18,40 @@ PACKAGES=( \
   docker-machine-completion \
   ffmpeg \
   fzf \
-  git git-flow git-crypt gist ghi hub tig \
+  ghi \
+  gist \
+  git \
+  git-crypt \
+  git-flow \
   htop \
   httpie \
+  hub \
   imagemagick \
   jq \
-  libpcap sngrep \
+  jsonlint \
+  libpcap \
   luarocks \
   mas \
   mc \
   nano \
   nmap \
   node \
+  prettyping \
   pngquant \
+  proselint \
   proxychains-ng \
   python3 \
   rbenv \
   rsync \
   ruby \
+  shellcheck \
+  sngrep \
   speedtest-cli \
   sshuttle \
+  tflint \
   the_silver_searcher \
+  tidy-html5 \
+  tig \
   tmux \
   tmux-mem-cpu-load \
   tree \
@@ -46,6 +60,8 @@ PACKAGES=( \
   w3m \
   wget \
   wifi-password \
+  write-good \
+  yamllint \
   yank \
   yarn \
   z \
@@ -64,7 +80,6 @@ done
 # rm -rf osync
 
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-brew install shellcheck jsonlint yamllint tflint ansible-lint tidy-html5 proselint write-good
 yarn global add eslint jshint jsxhint stylelint sass-lint markdownlint-cli raml-cop
 pip3 install --user vim-vint pycodestyle pyflakes flake8
 brew install neovim

@@ -253,8 +253,10 @@ set -e
 set +e
 # all the packages
 PACKAGES=( \
+  ansible-lint \
   autossh \
   connect \
+  ctags \
   curl \
   diff-so-fancy \
   dive \
@@ -273,19 +275,27 @@ PACKAGES=( \
   hub \
   imagemagick \
   jq \
-  libpcap sngrep \
+  jsonlint \
+  libpcap \
   luarocks \
   mc \
   nano \
   nmap \
+  node \
+  prettyping \
   pngquant \
+  proselint \
   proxychains-ng \
   rbenv \
   rsync \
   ruby \
+  shellcheck \
+  sngrep \
   speedtest-cli \
   sshuttle \
+  tflint \
   the_silver_searcher \
+  tidy-html5 \
   tig \
   tmux \
   tmux-mem-cpu-load \
@@ -294,8 +304,10 @@ PACKAGES=( \
   util-linux \
   w3m \
   wget \
+  write-good \
   yamllint \
   yank \
+  yarn \
   z \
   zip \
 )
@@ -342,9 +354,10 @@ set -e
 ##
 set +e
 
+su - ${LINUX_USER} zsh -c 'source ~/.zshrc; yarn global add eslint jshint jsxhint stylelint sass-lint markdownlint-cli raml-cop; pip3 install --user vim-vint pycodestyle pyflakes flake8'
+
 # brew install \
-#   mplayer \
-#   prettyping \
+#   mplayer
 #
 # # Crystal-lang
 # brew tap veelenga/tap

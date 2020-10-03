@@ -36,7 +36,6 @@ cd ~/.dotfiles && update_repositories
 # zsh ${ZIM_HOME}/tools/zim_update
 # source ${ZIM_HOME}/tools/zim_clean_cache
 
-
 case $OSTYPE in
 linux*)
   if is_sudo; then
@@ -61,11 +60,11 @@ PACKAGES=( \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
   brew_is_head_version "${PACKAGE}" && \
-  brew reinstall "${PACKAGE}" && \
-  brew link "${PACKAGE}"
+  brew reinstall "${PACKAGE}" ; \
+  brew unlink "${PACKAGE}" ; \
+  brew link --overwrite "${PACKAGE}"
 done
 
 brew cleanup --prune all --verbose
 
 ~/.dotfiles/bin/get-docker-compose
-# ~/.dotfiles/bin/reinstall-nvim
