@@ -263,7 +263,6 @@ PACKAGES=( \
   docker-completion \
   docker-compose-completion \
   docker-machine-completion \
-  ffmpeg \
   fzf \
   ghi \
   gist \
@@ -357,6 +356,7 @@ set +e
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; yarn global add eslint jshint jsxhint stylelint sass-lint markdownlint-cli raml-cop; pip3 install --user vim-vint pycodestyle pyflakes flake8'
 
 # brew install \
+#   ffmpeg \
 #   mplayer
 #
 # # Crystal-lang

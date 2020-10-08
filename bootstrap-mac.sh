@@ -16,7 +16,6 @@ PACKAGES=( \
   docker-completion \
   docker-compose-completion \
   docker-machine-completion \
-  ffmpeg \
   fzf \
   ghi \
   gist \
@@ -70,6 +69,27 @@ PACKAGES=( \
 for PACKAGE in "${PACKAGES[@]}"; do
   brew install ${PACKAGE}
 done
+
+################################################################################
+## Rest of packages
+##
+set +e
+
+# brew install \
+#   ffmpeg \
+#   mplayer
+#
+# # Crystal-lang
+# brew tap veelenga/tap
+# brew install ameba
+
+# # Digital Ocean
+# brew install doctl
+
+
+################################################################################
+## osync.sh
+##
 
 # cd /tmp
 # git clone -b "stable" https://github.com/deajan/osync
