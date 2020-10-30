@@ -138,7 +138,7 @@ source ~/.zshrc; \\
 pip3 install --user --upgrade virtualenv \\
 pip3 install --user --upgrade pynvim \\
 pip3 install --user --upgrade neovim \\
-gem install --no-document --user-install neovim
+gem install --user-install neovim
 """
 
 # We use rafi nvim config with some modifications
