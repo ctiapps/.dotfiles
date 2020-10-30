@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-apt-get install ntpd
+apt-get install ntpdate
 # europe.pool.ntp.org
 ntpdate es.pool.ntp.org
 apt-get update
