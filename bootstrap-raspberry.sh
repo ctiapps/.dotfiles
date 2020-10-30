@@ -99,7 +99,6 @@ chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.tmux ${LINUX_USER_HOME}
 apt-get -yqq --no-install-recommends --no-install-suggests install \
   zsh
 
-chsh --shell $(which zsh) root
 chsh --shell $(which zsh) "${LINUX_USER}"
 
 cat <<EOT > ${LINUX_USER_HOME}/.zshrc
