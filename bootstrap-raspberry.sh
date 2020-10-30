@@ -107,14 +107,11 @@ if [ -d "\$HOME/.dotfiles/bin" ] ; then
     PATH="\$HOME/.dotfiles/bin:\$PATH"
 fi
 
-export PATH="/home/linuxbrew/.linuxbrew/bin:\$PATH"
-export MANPATH="\$(brew --prefix)/share/man:\$MANPATH"
-export INFOPATH="\$(brew --prefix)/share/info:\$INFOPATH"
-
 # Uncomment if there would be issues with TERM
 # case $TERM in screen-256*) TERM=screen;; esac
 # case $TERM in tmux-256*)   TERM=screen;; esac
 EOT
+
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.zshrc
 
 su - ${LINUX_USER} sh -c "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh"
@@ -128,6 +125,7 @@ rm ${LINUX_USER_HOME}/.profile
 apt-get -yqq --no-install-recommends --no-install-suggests install \
   neovim \
   python3 \
+  python3-venv \
   ruby
 
 su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade virtualenv'
