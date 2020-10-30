@@ -128,10 +128,14 @@ rm ${LINUX_USER_HOME}/.profile
 ##
 
 apt-get -yqq --no-install-recommends --no-install-suggests install \
-  neovim \
   python3 \
   python3-venv \
-  ruby
+  ruby \
+  snapd
+
+# neovim from the repository is too old
+snap install nvim --classic
+ln -s /snap/bin/nvim /usr/bin/nvim
 
 su - ${LINUX_USER} zsh -c """
 source ~/.zshrc; \\
