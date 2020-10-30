@@ -130,6 +130,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   python3 \
   python3-venv \
   ruby \
+  ruby-dev \
   snapd
 
 # neovim from the repository is too old
@@ -137,11 +138,11 @@ snap install nvim --classic
 ln -s /snap/bin/nvim /usr/bin/nvim
 
 su - ${LINUX_USER} zsh -c """
-source ~/.zshrc; \\
-pip3 install --user --upgrade virtualenv \\
-pip3 install --user --upgrade pynvim \\
-pip3 install --user --upgrade neovim \\
-gem install --user-install neovim
+source ~/.zshrc && \\
+pip3 install --user --upgrade virtualenv; \\
+pip3 install --user --upgrade pynvim; \\
+pip3 install --user --upgrade neovim; \\
+gem install --clear-sources --minimal-deps --no-document --user-install neovim
 """
 
 # We use rafi nvim config with some modifications
