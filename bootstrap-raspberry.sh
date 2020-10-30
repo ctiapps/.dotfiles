@@ -14,7 +14,7 @@ ntpdate pool.ntp.org
 timedatectl set-ntp True
 
 ################################################################################
-## Installing debian packages
+## Installing dependencies and utilities
 ##
 apt-get update
 apt-get -yqq upgrade
@@ -24,6 +24,7 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   ca-certificates \
   curl \
   git \
+  mc \
   mtr-tiny \
   net-tools \
   nmap \
@@ -41,9 +42,13 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   python3-pip \
   python3-setuptools
 
-curl -sSL https://get.docker.com | sh
-pip3 -v install docker-compose
-usermod -aG docker "${LINUX_USER}"
+docker -v > /dev/null 2>&1
+if [[ $? != 0 ]]; then
+  curl -sSL https://get.docker.com | sh
+  usermod -aG docker "${LINUX_USER}"
+fi
+
+pip3 -v install --upgrade docker-compose
 
 ################################################################################
 ## Clone and bootstrap dotfiles
@@ -119,7 +124,7 @@ rm ${LINUX_USER_HOME}/.bash*
 rm ${LINUX_USER_HOME}/.profile
 
 ################################################################################
-## zsh
+## neovim
 ##
 
 apt-get -yqq --no-install-recommends --no-install-suggests install \
@@ -128,10 +133,13 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   python3-venv \
   ruby
 
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade virtualenv'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade pynvim'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; pip3 install --user --upgrade neovim'
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; gem install neovim'
+su - ${LINUX_USER} zsh -c """
+source ~/.zshrc; \\
+pip3 install --user --upgrade virtualenv \\
+pip3 install --user --upgrade pynvim \\
+pip3 install --user --upgrade neovim \\
+gem install --no-document --user-install neovim
+"""
 
 # We use rafi nvim config with some modifications
 mkdir -p ${LINUX_USER_HOME}/.config
@@ -140,7 +148,9 @@ ln -s ${LINUX_USER_HOME}/.config/nvim ${LINUX_USER_HOME}/.vim
 ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.vim ${LINUX_USER_HOME}/.config/nvim/config/local.vim
 ln -s ${LINUX_USER_HOME}/.dotfiles/config/nvim/config/local.plugins.yaml ${LINUX_USER_HOME}/.config/nvim/config/local.plugins.yaml
 chown -R ${LINUX_USER}:${LINUX_USER} ${LINUX_USER_HOME}/.config
-su - ${LINUX_USER} zsh -c 'source ~/.zshrc; cd ~/.config/nvim; ./venv.sh; make'
+su - ${LINUX_USER} zsh -c """
+source ~/.zshrc && cd ~/.config/nvim && ./venv.sh && make
+"""
 
 ################################################################################
 ## Post-install
