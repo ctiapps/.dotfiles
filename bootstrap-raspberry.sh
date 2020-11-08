@@ -133,6 +133,10 @@ apt-get -yqq --no-install-recommends --no-install-suggests install \
   ruby-dev \
   snapd
 
+# TODO:
+# add to PATH:
+# $(gem env | grep 'USER INSTALLATION DIRECTORY:' | awk -F ": " '{print $2}')/bin
+
 # neovim from the repository is too old
 snap install nvim --classic
 ln -s /snap/bin/nvim /usr/bin/nvim

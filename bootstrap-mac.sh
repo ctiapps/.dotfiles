@@ -22,6 +22,7 @@ PACKAGES=( \
   git \
   git-crypt \
   git-flow \
+  hadolint \
   htop \
   httpie \
   hub \
