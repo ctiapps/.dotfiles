@@ -21,6 +21,7 @@ apt-get -yqq upgrade
 apt-get -yqq autoremove
 
 apt-get -yqq --no-install-recommends --no-install-suggests install \
+  autossh \
   ca-certificates \
   curl \
   git \
