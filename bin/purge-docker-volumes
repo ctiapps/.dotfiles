@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker volume ls | grep -v '\| _\|-' | awk '{print $2}' | xargs
