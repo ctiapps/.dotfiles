@@ -11,7 +11,12 @@
 - repo: mhartington/oceanic-next
 - repo: jdkanani/vim-material-theme
 
-# - repo: ryanoasis/vim-devicons
+- repo: ryanoasis/vim-devicons
+
+# With nvim we should use ojroques's repo, details:  https://github.com/fcpg/vim-osc52/issues/6
+- repo: ojroques/vim-oscyank
+# - repo: fcpg/vim-osc52
+
 
 # Tabline, statusline
 # ---------

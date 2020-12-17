@@ -204,4 +204,14 @@ set termguicolors
 "   set termguicolors!
 " endif
 
+if exists('##TextYankPost')
+  augroup BlinkClipboardIntegration
+    autocmd!
+    autocmd TextYankPost * silent! if v:event.operator ==# 'y' | call YankOSC52(join(v:event["regcontents"],"\n")) | endif
+  augroup END
+endif
+
+" cmd - backspace as ÿ (0xFF) mapped with blink
+inoremap <Char-0xFF> <Delete>
+
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
