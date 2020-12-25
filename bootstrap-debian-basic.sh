@@ -142,10 +142,10 @@ _fix_brew_permissions() {
 }
 install_brew() {
     if [ ! -d /home/linuxbrew/.linuxbrew ] ; then
-        git clone --depth 1 https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew
-        _fix_brew_permissions
         addgroup --system brew
         usermod -aG brew "${SYSTEM_USER}"
+        git clone --depth 1 https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew
+        _fix_brew_permissions
     fi
     cd /home/linuxbrew/.linuxbrew
     git config --local --replace-all homebrew.private true
