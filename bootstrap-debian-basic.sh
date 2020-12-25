@@ -182,7 +182,7 @@ install_zsh() {
     set +e
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge zsh*
     rm -rf /usr/bin/zsh
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/zsh /usr/bin/zsh
+    ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh
     grep -q -F "/usr/bin/zsh" /etc/shells || echo "/usr/bin/zsh" >> /etc/shells
     chsh -s /usr/bin/zsh "${SYSTEM_USER}"
     set -e
@@ -196,9 +196,9 @@ install_mosh() {
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge mosh*
     rm -rf /usr/bin/mosh*
     set -e
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/mosh-server /usr/bin/mosh-server
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/mosh-client /usr/bin/mosh-client
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/mosh /usr/bin/mosh
+    ln -s /home/linuxbrew/.linuxbrew/bin/mosh-server /usr/bin/mosh-server
+    ln -s /home/linuxbrew/.linuxbrew/bin/mosh-client /usr/bin/mosh-client
+    ln -s /home/linuxbrew/.linuxbrew/bin/mosh /usr/bin/mosh
 }
 
 
@@ -225,7 +225,7 @@ install_tmux() {
     rm -rf "${SYSTEM_USER_HOME}"/.tmux \
            "${SYSTEM_USER_HOME}"/.tmux.conf
     set -e
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/tmux /usr/bin/tmux
+    ln -s /home/linuxbrew/.linuxbrew/bin/tmux /usr/bin/tmux
     ln -s "${SYSTEM_USER_HOME}"/.dotfiles/tmux "${SYSTEM_USER_HOME}"/.tmux
     ln -s "${SYSTEM_USER_HOME}"/.tmux/tmux.conf "${SYSTEM_USER_HOME}"/.tmux.conf
     # Create samlpe tmux user.conf
@@ -265,7 +265,7 @@ install_apps() {
     for PACKAGE in "${PACKAGES[@]}"; do
         apt-get -yqq purge "${PACKAGE}"*
         if [ -f "${SYSTEM_USER_HOME}/.linuxbrew/bin/${PACKAGE}" ]; then
-            ln -s "${SYSTEM_USER_HOME}/.linuxbrew/bin/${PACKAGE}" "/usr/bin/${PACKAGE}"
+            ln -s /home/linuxbrew/.linuxbrew/bin/"${PACKAGE}" "/usr/bin/${PACKAGE}"
         fi
     done
     set -e
@@ -292,10 +292,10 @@ install_nvim() {
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge vim* neovim*
     rm -rf /usr/bin/vim
     rm -rf /usr/bin/nvim
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/nvim /usr/bin/nvim
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/nvim /usr/bin/mvim
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/nvim /usr/bin/vim
-    ln -s "${SYSTEM_USER_HOME}"/.linuxbrew/bin/nvim /usr/bin/vi
+    ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim
+    ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/mvim
+    ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim
+    ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi
     set -e
 }
 
