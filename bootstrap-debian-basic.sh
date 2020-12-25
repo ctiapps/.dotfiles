@@ -134,14 +134,20 @@ install_docker() {
 }
 
 
+_fix_brew_permissions() {
+    chgrp -R brew /home/linuxbrew
+    chmod -R g+w  /home/linuxbrew
+    chgrp -R brew /home/linuxbrew/.linuxbrew/*
+    chmod -R g+w  /home/linuxbrew/.linuxbrew/*
+}
 install_brew() {
-    if [ ! -d "${SYSTEM_USER_HOME}/.linuxbrew" ] ; then
-        git clone --depth 1 https://github.com/Homebrew/brew.git "${SYSTEM_USER_HOME}/.linuxbrew"
-        mkdir -p /home/linuxbrew
-        chown -R "${SYSTEM_USER}:${SYSTEM_USER}" /home/linuxbrew
-        ln -s "${SYSTEM_USER_HOME}"/.linuxbrew /home/linuxbrew/.linuxbrew
+    if [ ! -d /home/linuxbrew/.linuxbrew ] ; then
+        git clone --depth 1 https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew
+        _fix_brew_permissions
+        addgroup --system brew
+        usermod -aG brew "${SYSTEM_USER}"
     fi
-    cd "${SYSTEM_USER_HOME}/.linuxbrew"
+    cd /home/linuxbrew/.linuxbrew
     git config --local --replace-all homebrew.private true
     cat << '    EOT' | sed -e 's/^    //' > "${SYSTEM_USER_HOME}/.zshrc"
     # # Uncomment if there would be issues with TERM
@@ -154,8 +160,8 @@ install_brew() {
     [ -d "${HOME}/.dotfiles/bin" ] && PATH="${HOME}/.dotfiles/bin:${PATH}"
     [ -d "${HOME}/.dotfiles/local/bin" ] && PATH="${HOME}/.dotfiles/local/bin:${PATH}"
 
-    if [ -d "${HOME}/.linuxbrew/bin" ]; then
-        export PATH="${HOME}/.linuxbrew/bin:${PATH}"
+    if [ -d /home/linuxbrew/.linuxbrew/bin ]; then
+        export PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
         export MANPATH="$(brew --prefix)/share/man:${MANPATH}"
         export INFOPATH="$(brew --prefix)/share/info:${INFOPATH}"
     fi
@@ -301,6 +307,7 @@ post_install(){
 
 cleanup() {
     set +e
+    _fix_brew_permissions
     apt-get -yqq clean all
     # su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew cleanup --prune all >/dev/null 2>&1"
     "${SYSTEM_USER_HOME}"/.dotfiles/bin/purge-system-logfiles
