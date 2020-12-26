@@ -144,7 +144,9 @@ install_brew() {
     if [ ! -d /home/linuxbrew/.linuxbrew ] ; then
         addgroup --system brew
         usermod -aG brew "${SYSTEM_USER}"
-        git clone --depth 1 https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew
+        git clone --depth 1 https://github.com/Homebrew/brew.git /home/linuxbrew/.linuxbrew/Homebrew
+        mkdir -p /home/linuxbrew/.linuxbrew/bin
+        ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
         _fix_brew_permissions
     fi
     cd /home/linuxbrew/.linuxbrew
@@ -178,8 +180,8 @@ install_brew() {
 
 # Install brew zsh (and replace system version)
 install_zsh() {
-    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet zsh"
     set +e
+    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet zsh || brew install --quiet --build-from-source zsh"
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge zsh*
     rm -rf /usr/bin/zsh
     ln -s /home/linuxbrew/.linuxbrew/bin/zsh /usr/bin/zsh
@@ -191,8 +193,8 @@ install_zsh() {
 
 
 install_mosh() {
-    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet --HEAD mosh"
     set +e
+    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet --HEAD mosh || brew install --quiet --build-from-source --HEAD mosh"
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge mosh*
     rm -rf /usr/bin/mosh*
     set -e
@@ -218,8 +220,8 @@ install_dotfiles() {
 }
 
 install_tmux() {
-    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet tmux"
     set +e
+    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet tmux || brew install --quiet --build-from-source tmux"
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge tmux*
     rm -rf /usr/bin/tmux
     rm -rf "${SYSTEM_USER_HOME}"/.tmux \
@@ -237,6 +239,7 @@ install_tmux() {
     fi
     chown -R "${SYSTEM_USER}":"${SYSTEM_USER}" "${SYSTEM_USER_HOME}"/.tmux
     chown -R "${SYSTEM_USER}":"${SYSTEM_USER}" "${SYSTEM_USER_HOME}"/.tmux.conf
+    ls -l "${SYSTEM_USER_HOME}"/.tmux*
     su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc && cd \"${SYSTEM_USER_HOME}\"/.tmux/plugins/tpm/bin && ./install_plugins && cd && tmux new-session -d -s tmp sleep 180s"
 }
 
@@ -252,7 +255,7 @@ install_apps() {
     )
     set +e
     for PACKAGE in "${PACKAGES[@]}"; do
-        su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet ${PACKAGE}"
+        su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet \"${PACKAGE}\" || brew install --quiet --build-from-source \"${PACKAGE}\""
     done
     set -e
 
@@ -265,7 +268,7 @@ install_apps() {
     for PACKAGE in "${PACKAGES[@]}"; do
         apt-get -yqq purge "${PACKAGE}"*
         if [ -f "${SYSTEM_USER_HOME}/.linuxbrew/bin/${PACKAGE}" ]; then
-            ln -s /home/linuxbrew/.linuxbrew/bin/"${PACKAGE}" "/usr/bin/${PACKAGE}"
+            ln -s /home/linuxbrew/.linuxbrew/bin/"${PACKAGE}" /usr/bin/"${PACKAGE}"
         fi
     done
     set -e
@@ -287,8 +290,8 @@ install_apps() {
 
 
 install_nvim() {
-    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet neovim"
     set +e
+    su - "${SYSTEM_USER}" zsh -c "source ~/.zshrc; brew install --quiet neovim || brew install --quiet --build-from-source neovim"
     DEBIAN_FRONTEND=noninteractive apt-get -yqq purge vim* neovim*
     rm -rf /usr/bin/vim
     rm -rf /usr/bin/nvim
