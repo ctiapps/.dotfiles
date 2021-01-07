@@ -32,9 +32,8 @@ update_repositories() {
 
 cd ~/.dotfiles && update_repositories
 
-# # zim update
-# zsh ${ZIM_HOME}/tools/zim_update
-# source ${ZIM_HOME}/tools/zim_clean_cache
+# zim update
+zsh -c 'source ~/.zshrc && zimfw upgrade && zimfw clean && zimfw compile'
 
 case $OSTYPE in
 linux*)
@@ -56,7 +55,6 @@ brew upgrade
 PACKAGES=( \
   mosh \
   tmux \
-  neovim \
 )
 for PACKAGE in "${PACKAGES[@]}"; do
   brew_is_head_version "${PACKAGE}" && \
