@@ -23,9 +23,9 @@ git pull
 ./venv.sh
 ~/.cache/vim/venv/bin/pip install neovim || pip install neovim || pip3 install neovim
 
-nvim -c "call dein#clear_state()"
-nvim -c "call dein#remote_plugins()"
-
-echo ">>> run in the nvim following commands"
-echo ":call dein#clear_state()"
-echo ":call dein#remote_plugins()"
+# nvim -c "call dein#clear_state()"
+# nvim -c "call dein#remote_plugins()"
+#
+# echo ">>> run in the nvim following commands"
+# echo ":call dein#clear_state()"
+# echo ":call dein#remote_plugins()"
