@@ -15,10 +15,6 @@ map <LocalLeader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline={
      \ 'colorscheme': 'PaperColor',
-     \ }
-
-let g:lightline={
-     \ 'colorscheme': 'PaperColor',
      \ 'active': {
      \   'left': [ ['mode', 'paste'],
      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
@@ -36,6 +32,10 @@ let g:lightline={
      \ },
      \ 'separator': { 'left': ' ', 'right': ' ' },
      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+     \ }
+
+let g:lightline = {
+     \ 'colorscheme': 'snazzy',
      \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -138,7 +138,9 @@ colorscheme PaperColor
 if vim_user == 'ak'
   set background=dark
   let ayucolor="dark"
-  colorscheme ayu
+  " colorscheme ayu
+	" let g:SnazzyTransparent=1
+	colorscheme snazzy
   " colorscheme PaperColor
   " colorscheme solarized8_high
 endif
@@ -146,7 +148,9 @@ endif
 if ssh_user == 'andrius'
   set background=dark
   let ayucolor="dark"
-  colorscheme ayu
+  " colorscheme ayu
+	" let g:SnazzyTransparent=1
+	colorscheme snazzy
   " colorscheme PaperColor
   " colorscheme solarized8_high
 endif
