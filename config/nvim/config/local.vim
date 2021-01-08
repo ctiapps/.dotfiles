@@ -136,21 +136,21 @@ set background=dark
 colorscheme PaperColor
 
 if vim_user == 'ak'
-  set background=dark
-  let ayucolor="dark"
-  " colorscheme ayu
+  set background=light
+  let ayucolor="light"
+  colorscheme ayu
 	" let g:SnazzyTransparent=1
-	colorscheme snazzy
+	" colorscheme snazzy
   " colorscheme PaperColor
   " colorscheme solarized8_high
 endif
 
 if ssh_user == 'andrius'
-  set background=dark
-  let ayucolor="dark"
-  " colorscheme ayu
+  set background=light
+  let ayucolor="light"
+  colorscheme ayu
 	" let g:SnazzyTransparent=1
-	colorscheme snazzy
+	" colorscheme snazzy
   " colorscheme PaperColor
   " colorscheme solarized8_high
 endif
