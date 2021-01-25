@@ -1,6 +1,8 @@
 # Themes
 # ---------
 
+- repo: ryanoasis/vim-devicons
+
 - repo: ayu-theme/ayu-vim
 - repo: noahfrederick/vim-hemisu
 - repo: noahfrederick/vim-noctu
@@ -11,7 +13,7 @@
 - repo: mhartington/oceanic-next
 - repo: jdkanani/vim-material-theme
 - repo: connorholyday/vim-snazzy
-- repo: ryanoasis/vim-devicons
+- { repo: sonph/onehalf, rtp: 'vim/'}
 
 # With nvim we should use ojroques's repo, details:  https://github.com/fcpg/vim-osc52/issues/6
 - repo: ojroques/vim-oscyank

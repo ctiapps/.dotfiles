@@ -149,7 +149,7 @@ install_brew() {
         ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
         _fix_brew_permissions
     fi
-    cd /home/linuxbrew/.linuxbrew
+    cd /home/linuxbrew/.linuxbrew/Homebrew
     git config --local --replace-all homebrew.private true
     cat << '    EOT' | sed -e 's/^    //' > "${SYSTEM_USER_HOME}/.zshrc"
     # # Uncomment if there would be issues with TERM

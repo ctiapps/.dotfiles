@@ -137,8 +137,9 @@ colorscheme PaperColor
 
 if vim_user == 'ak'
   set background=light
-  let ayucolor="light"
-  colorscheme ayu
+	colorscheme onehalflight
+  " let ayucolor="light"
+  " colorscheme ayu
 	" let g:SnazzyTransparent=1
 	" colorscheme snazzy
   " colorscheme PaperColor
@@ -147,8 +148,9 @@ endif
 
 if ssh_user == 'andrius'
   set background=light
-  let ayucolor="light"
-  colorscheme ayu
+	colorscheme onehalflight
+  " let ayucolor="light"
+  " colorscheme ayu
 	" let g:SnazzyTransparent=1
 	" colorscheme snazzy
   " colorscheme PaperColor
