@@ -1,31 +1,41 @@
 #!/usr/bin/env bash
 
-find ${HOME}/.cache/vim/* -maxdepth 0 -path ${HOME}/.cache/vim/undo -prune -o -path ${HOME}/.cache/vim/session -prune -o -print -exec rm -rf {} \;
+set -x
 
-brew install python3
-# brew install ruby
-# brew unlink ruby
-# brew link --overwrite ruby
-brew_is_head_version neovim
+brew install python3 ruby
+brew unlink ruby
+brew link --overwrite ruby
 brew install --HEAD neovim
-
-brew cleanup --prune all --verbose
 
 gem install neovim
 pip3 install --user --upgrade virtualenv
 pip3 install --user --upgrade pynvim
 pip3 install --user --upgrade neovim
 
+# apt-get -yqq purge vim*
+# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/nvim >/dev/null 2>&1
+# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vim  >/dev/null 2>&1
+# ln -s /home/linuxbrew/.linuxbrew/bin/nvim /usr/bin/vi   >/dev/null 2>&1
+
+# Cleanup
+find ~/.cache/vim/* -maxdepth 0 -path ~/.cache/vim/undo -prune -o -path ~/.cache/vim/session -prune -o -print -exec rm -rf {} \;
+
+# We use rafi nvim config with some modifications
+mkdir -p ~/.config
+git clone git://github.com/rafi/vim-config.git ~/.config/nvim
+ln -s ~/.config/nvim ~/.vim
+ln -s ~/.dotfiles/config/nvim/config/local.vim ~/.config/nvim/config/local.vim
+ln -s ~/.dotfiles/config/nvim/config/local.plugins.yaml ~/.config/nvim/config/local.plugins.yaml
 cd ~/.config/nvim
 git fetch --all
 git pull
-
 ./venv.sh
+make
 ~/.cache/vim/venv/bin/pip install neovim || pip install neovim || pip3 install neovim
 
-# nvim -c "call dein#clear_state()"
-# nvim -c "call dein#remote_plugins()"
-#
-# echo ">>> run in the nvim following commands"
-# echo ":call dein#clear_state()"
-# echo ":call dein#remote_plugins()"
+nvim -c "call dein#clear_state()"
+nvim -c "call dein#remote_plugins()"
+
+echo ">>> run in the nvim following commands"
+echo ":call dein#clear_state()"
+echo ":call dein#remote_plugins()"
