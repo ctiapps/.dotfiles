@@ -48,8 +48,8 @@ let g:lightline = {
 " let g:airline_theme='atomic'
 " let g:airline_theme='badwolf'
 " let g:airline_theme='silver'
-let g:airline_theme='ayu_mirage'
-" let g:airline_theme='ayu_dark'
+" let g:airline_theme='ayu_mirage'
+let g:airline_theme='ayu_dark'
 " let g:airline_theme='tomorrow'
 " let g:airline_theme='papercolor'
 " let g:airline_theme='oceanicnext'
@@ -103,9 +103,9 @@ let g:PaperColor_Theme_Options = {
 let g:oceanic_next_terminal_bold=1
 let g:oceanic_next_terminal_italic=1
 
-let ayucolor="light"  " for light version of theme
+" let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
+let ayucolor="dark"   " for dark version of theme
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
 " let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";
@@ -126,20 +126,19 @@ set background=dark
 " colorscheme OceanicNext
 " colorscheme OceanicNextLight
 " colorscheme peaksea
-" colorscheme ayu
+colorscheme ayu
 " colorscheme solarized8_high " high-contrast variant
 " colorscheme solarized8      " the default Solarized theme
 " colorscheme solarized8_low  " low-contrast variant
 " colorscheme solarized8_flat " flat variant
 " colorscheme summerfruit256
-
-colorscheme PaperColor
+" colorscheme PaperColor
 
 if vim_user == 'ak'
-  set background=light
-	colorscheme onehalflight
+  " set background=light
+	" colorscheme onehalflight
   " let ayucolor="light"
-  " colorscheme ayu
+  colorscheme ayu
 	" let g:SnazzyTransparent=1
 	" colorscheme snazzy
   " colorscheme PaperColor
@@ -147,10 +146,10 @@ if vim_user == 'ak'
 endif
 
 if ssh_user == 'andrius'
-  set background=light
-	colorscheme onehalflight
+  " set background=light
+	" colorscheme onehalflight
   " let ayucolor="light"
-  " colorscheme ayu
+  colorscheme ayu
 	" let g:SnazzyTransparent=1
 	" colorscheme snazzy
   " colorscheme PaperColor
