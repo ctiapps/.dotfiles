@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+# vim: set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab filetype=sh fileencoding=utf-8 :
+set -ueo pipefail
+
+set +e
+# brew install --quiet tmux || brew install --quiet --build-from-source tmux
+# sudo DEBIAN_FRONTEND=noninteractive apt-get -yqq purge tmux*
+# rm -rf /usr/bin/tmux
+# rm -rf $HOME/.tmux \
+#        $HOME/.tmux.conf
+# set -e
+# ln -s $(brew --prefix)/bin/tmux /usr/bin/tmux
+ln -s $HOME/.dotfiles/tmux $HOME/.tmux
+ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf
+# Create samlpe tmux user.conf
+cp $HOME/.tmux/user.conf-sample $HOME/.tmux/user.conf
+mkdir -p $HOME/.tmux/plugins \
+         $HOME/.tmux/data
+if [ ! -d $HOME/.tmux/plugins/tpm ]; then
+    git clone --depth 1 https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
+chown -R $USER:$USER $HOME/.tmux
+chown -R $USER:$USER $HOME/.tmux.conf
+ls -l $HOME/.tmux*
+cd $HOME/.tmux/plugins/tpm/bin && ./install_plugins && cd && tmux new-session -d -s tmp sleep 180s
