@@ -1,4 +1,5 @@
 /local
+/private
 
 /tmux/user.conf
 /tmux/plugins
