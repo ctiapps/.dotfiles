@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+# vim: set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab filetype=sh fileencoding=utf-8 :
+
+rm -rf ~/.zim ~/.zimrc
+curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
