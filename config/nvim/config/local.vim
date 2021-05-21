@@ -104,8 +104,8 @@ let g:oceanic_next_terminal_bold=1
 let g:oceanic_next_terminal_italic=1
 
 " let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
+let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
 
 " let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
 " let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";
@@ -126,9 +126,11 @@ set background=dark
 " colorscheme OceanicNext
 " colorscheme OceanicNextLight
 " colorscheme peaksea
-colorscheme ayu
+" colorscheme ayu
+" colorscheme onehalflight
+" colorscheme github
 " colorscheme solarized8_high " high-contrast variant
-" colorscheme solarized8      " the default Solarized theme
+colorscheme solarized8      " the default Solarized theme
 " colorscheme solarized8_low  " low-contrast variant
 " colorscheme solarized8_flat " flat variant
 " colorscheme summerfruit256
@@ -136,22 +138,24 @@ colorscheme ayu
 
 if vim_user == 'ak'
   " set background=light
-	" colorscheme onehalflight
+  " colorscheme onehalflight
+  " colorscheme github
   " let ayucolor="light"
-  colorscheme ayu
-	" let g:SnazzyTransparent=1
-	" colorscheme snazzy
+  " colorscheme ayu
+  " let g:SnazzyTransparent=1
+  " colorscheme snazzy
   " colorscheme PaperColor
   " colorscheme solarized8_high
 endif
 
 if ssh_user == 'andrius'
   " set background=light
-	" colorscheme onehalflight
+  " colorscheme onehalflight
+  " colorscheme github
   " let ayucolor="light"
-  colorscheme ayu
-	" let g:SnazzyTransparent=1
-	" colorscheme snazzy
+  " colorscheme ayu
+  " let g:SnazzyTransparent=1
+  " colorscheme snazzy
   " colorscheme PaperColor
   " colorscheme solarized8_high
 endif
