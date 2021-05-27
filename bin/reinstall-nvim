@@ -7,7 +7,7 @@ brew unlink ruby
 brew link --overwrite ruby
 brew install --HEAD neovim
 
-gem install neovim
+gem install --user-install neovim
 pip3 install --user --upgrade virtualenv
 pip3 install --user --upgrade pynvim
 pip3 install --user --upgrade neovim

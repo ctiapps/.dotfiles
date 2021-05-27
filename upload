@@ -20,7 +20,7 @@ RSYNC_SKIP_COMPRESS=3fr/3g2/3gp/3gpp/7z/aac/ace/amr/apk/appx/appxbundle/arc/arj/
 # ssh ${REMOTE} 'apt-get update && apt-get install -yqq --no-install-recommends --no-install-suggests rsync screen curl ca-certificates'
 # ssh ${REMOTE} 'mkdir -p ~/.dotfiles' && \
 # /usr/bin/rsync ${DRY_RUN} -avzP \
-/usr/bin/rsync ${DRY_RUN} -aHAXxvP \
+rsync ${DRY_RUN} -aHAXxvP \
   --skip-compress=${RSYNC_SKIP_COMPRESS} \
   --links \
   --numeric-ids \

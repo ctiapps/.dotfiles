@@ -107,19 +107,20 @@ let g:oceanic_next_terminal_italic=1
 let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
 
-" let g:solarized_visibility="normal" " one of "normal" (default), "low", "high";
-" let g:solarized_diffmode="normal"   " one of "normal" (default), "low", "high";
-" let g:solarized_termtrans=0         " make terminal background transparent if set to 1 (default: 0);
+let g:solarized_visibility="high" " one of "normal" (default), "low", "high";
+let g:solarized_diffmode="high"   " one of "normal" (default), "low", "high";
+let g:solarized_termtrans=1         " make terminal background transparent if set to 1 (default: 0);
 
 " The following options were not available in the original Solarized:
 
-" let g:solarized_statusline="normal" " one of "normal" (default), "low" or "flat";
+let g:solarized_statusline="normal" " one of "normal" (default), "low" or "flat";
 " let g:solarized_italics=1           " set to 0 to suppress italics (default is 1).
 " let g:solarized_old_cursor_style=0  " set to 1 if you want to use the original Solarized's cursor style (default: 0). By default, the cursor is orange/red in light themes, and blue in dark themes (but please note that your terminal may override the cursor's color).
 " let g:solarized_use16=0             " set to 1 to force using your 16 ANSI terminal colors.
 " let g:solarized_extra_hi_groups=0   " set to 1 to enable Solarized filetype-specific syntax highlighting groups (default is 0). Please be aware that there is a long standing issue with syntax items defined in color schemes.
 
-set background=dark
+" set background=dark
+set background=light
 " colorscheme hemisu
 " colorscheme noctu
 " colorscheme PaperColor
@@ -129,8 +130,8 @@ set background=dark
 " colorscheme ayu
 " colorscheme onehalflight
 " colorscheme github
-" colorscheme solarized8_high " high-contrast variant
-colorscheme solarized8      " the default Solarized theme
+colorscheme solarized8_high " high-contrast variant
+" colorscheme solarized8      " the default Solarized theme
 " colorscheme solarized8_low  " low-contrast variant
 " colorscheme solarized8_flat " flat variant
 " colorscheme summerfruit256
