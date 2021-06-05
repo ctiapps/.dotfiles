@@ -1,0 +1,41 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+# global variables
+include ${HOME}/.config/sway/definitions
+
+# add your customizations here
+# e.g.:
+# * change modifier key from Alt to Win/Pine-Key: set $mod Mod4
+# set $mod Mod4
+# Use Mod1 for Alt.
+set $mod Mod1
+
+
+set $lockscreen swaylock --color 000000 --daemonize
+bindsym $mod+Escape exec $lockscreen
+
+# # * change the background image: set $background /usr/share/wallpapers/manjaro-arm/generic/manjaro-arm.png
+# # * change the theme: set $theme ${HOME}/.config/sway/themes/matcha-blue
+set $theme ${HOME}/.config/sway/themes/terminal-basic
+# #
+# # please note that the theme has a custom background spec as well, so you will have to keep the right
+# # order if you want to change both (first theme, then background)
+
+include ${HOME}/.config/sway/inputs/*
+include ${HOME}/.config/sway/outputs/*
+
+include ${HOME}/.config/sway/inputs/*
+# enable modes
+include ${HOME}/.config/sway/modes/*
+
+# only enable this if every app you use is compatible with wayland
+# xwayland disable
+
+# # include additional configs e.g. to autostart applications
+# include ${HOME}/.config/sway/config.d/*
+#
+set $background ${HOME}/.dotfiles/private/dotfiles-shared/Wallpapers/IMG_6547.JPG
