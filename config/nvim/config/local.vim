@@ -130,12 +130,13 @@ set background=light
 " colorscheme ayu
 " colorscheme onehalflight
 " colorscheme github
-colorscheme solarized8_high " high-contrast variant
+" colorscheme solarized8_high " high-contrast variant
 " colorscheme solarized8      " the default Solarized theme
 " colorscheme solarized8_low  " low-contrast variant
 " colorscheme solarized8_flat " flat variant
 " colorscheme summerfruit256
 " colorscheme PaperColor
+colorscheme tokyonight
 
 if vim_user == 'ak'
   " set background=light
